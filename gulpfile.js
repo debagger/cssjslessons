@@ -1,5 +1,6 @@
 const gulp = require("gulp");
 const connect = require("gulp-connect");
+const babel = require("gulp-babel");
 
 function connectTask(cb) {
   connect.server({
@@ -25,7 +26,10 @@ function buildHtml(cb) {
 }
 
 function buildJs(cb) {
-  gulp.src("./src/js/**.js").pipe(gulp.dest("./dist/js"));
+  gulp
+    .src(["./src/js/css.js"])
+    .pipe(babel({ presets: ["@babel/env"] }))
+    .pipe(gulp.dest("./dist/js"));
   cb();
 }
 
