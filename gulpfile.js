@@ -1,6 +1,8 @@
 const gulp = require("gulp");
 const connect = require("gulp-connect");
-const babel = require("gulp-babel");
+const rollup = require("gulp-better-rollup");
+const babel = require("rollup-plugin-babel");
+const sourcemaps = require("gulp-sourcemaps");
 
 function connectTask(cb) {
   connect.server({
@@ -27,8 +29,27 @@ function buildHtml(cb) {
 
 function buildJs(cb) {
   gulp
-    .src(["./src/js/css.js"])
-    .pipe(babel({ presets: ["@babel/env"] }))
+    .src("./src/js/css.js")
+    .pipe(sourcemaps.init())
+    // transform the files here.
+    .pipe(
+      rollup(
+        {
+          // There is no `input` option as rollup integrates into the gulp pipeline
+          plugins: [
+            babel({
+              babelrc: false,
+              presets: [["@babel/env", { modules: false }]]
+            })
+          ]
+        },
+        {
+          // Rollups `sourcemap` option is unsupported. Use `gulp-sourcemaps` plugin instead
+          format: "cjs"
+        }
+      )
+    )
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest("./dist/js"));
   cb();
 }

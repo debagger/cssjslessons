@@ -1,6 +1,5 @@
 "use strict";
-import myStylesheet from "createStylesheet";
-
+import myStylesheet from "./ss.js";
 const bgColor = "yellow";
 const body =
   myStylesheet.cssRules[
