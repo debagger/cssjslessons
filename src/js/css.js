@@ -1,13 +1,8 @@
 "use strict";
-import myStylesheet from "./ss.js";
-const bgColor = "yellow";
-const body =
-  myStylesheet.cssRules[
-    myStylesheet.insertRule(`
-body {background: ${bgColor}}
-`)
-  ];
+import styleSheet from "./ss.js";
+import style from "./style.js";
 
-const h1 = myStylesheet.insertRule(`
-h1 {color:red}
-`);
+const mySS = new styleSheet(style);
+
+console.log(mySS.css());
+mySS.attach();

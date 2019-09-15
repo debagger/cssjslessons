@@ -31,11 +31,9 @@ function buildJs(cb) {
   gulp
     .src("./src/js/css.js")
     .pipe(sourcemaps.init())
-    // transform the files here.
     .pipe(
       rollup(
         {
-          // There is no `input` option as rollup integrates into the gulp pipeline
           plugins: [
             babel({
               babelrc: false,
@@ -44,7 +42,6 @@ function buildJs(cb) {
           ]
         },
         {
-          // Rollups `sourcemap` option is unsupported. Use `gulp-sourcemaps` plugin instead
           format: "cjs"
         }
       )
