@@ -1,3 +1,4 @@
+import CSSRule from "./rule.js";
 function getCssRuleStr(selector, bodyObj) {
   return `${selector} {\n${getBodyStr(bodyObj)}\n}`;
 }
@@ -7,16 +8,24 @@ function getBodyStr(bodyObj) {
     .map(([name, value]) => `  ${name}: ${value};`)
     .join("\n");
 }
-
+/**
+ * Root class for StyleSheet generate
+ */
 export default class styleSheet {
-  constructor(styles) {
-    this.styles = styles;
+  constructor() {
+    this.rules = [];
+  }
+
+  rule(selector) {
+    let rule = this.rules.find(r => r.selector == selector);
+    if (rule) return rule;
+    rule = new CSSRule(selector);
+    this.rules.push(rule);
+    return rule;
   }
 
   css() {
-    return Object.entries(this.styles)
-      .map(([selector, body]) => getCssRuleStr(selector, body))
-      .join("\n\n");
+    return this.rules.join("\n\n");
   }
 
   attach() {
