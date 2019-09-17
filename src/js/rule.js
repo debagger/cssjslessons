@@ -4,6 +4,7 @@ export default class CSSRule {
     this.properties = new Map();
     this.extendes = [];
     this.medias = new Map();
+    this.nesties = [];
   }
 
   props(properties) {
@@ -27,18 +28,36 @@ export default class CSSRule {
     return rule;
   }
 
-  toString() {
+  nest(selector) {
+    let rule = this.nesties.find(s => (s.selector = selector));
+    if (rule) return rule;
+    rule = new CSSRule(selector);
+    this.nesties.push(rule);
+    return rule;
+  }
+
+  toString(parentSelector = "") {
     const body = Array.from(this.properties)
       .map(([key, value]) => `  ${key}: ${value};`)
       .join("\n");
 
-    const rule = `${[this.selector, ...this.extendes.map(r => r.selector)].join(
+    let selector = this.selector;
+    if (selector.includes("&")) {
+      selector = selector.replace("&", parentSelector);
+    } else {
+      if (selector.length > 0) selector = parentSelector + " " + selector;
+    }
+
+    const rule = `${[selector, ...this.extendes.map(r => r.selector)].join(
       ", "
     )} {\n${body}\n}`;
+
     const medias = Array.from(this.medias).map(
       ([key, value]) => `@media ${key} {\n${value.toString()}\n}`
     );
 
-    return [rule, ...medias].join("\n\n");
+    const nest = this.nesties.map(n => n.toString(selector)).join("\n\n");
+
+    return [rule, ...medias, nest].join("\n\n");
   }
 }

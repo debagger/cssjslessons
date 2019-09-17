@@ -1,6 +1,7 @@
 "use strict";
 import styleSheet from "./ss.js";
 import mixin from "./mixins.js";
+import mixins from "./mixins.js";
 const mySS = new styleSheet();
 
 mySS
@@ -21,7 +22,13 @@ mySS.rule("h1").props({ "margin-bottom": "42px" });
 
 mySS.rule(".red-color").props({ color: "red" });
 
-mySS.rule(".font-big").props({ "font-size": "300px" });
+mySS
+  .rule(".font-big")
+  .props({ "font-size": "300px" })
+  .nest("&-red")
+  .props({ color: "red" })
+  .nest("p")
+  .props(mixins.setPaddings("3px"));
 
 mySS
   .rule("h1")
