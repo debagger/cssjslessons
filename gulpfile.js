@@ -3,7 +3,7 @@ const connect = require("gulp-connect");
 const rollup = require("gulp-better-rollup");
 const babel = require("rollup-plugin-babel");
 const sourcemaps = require("gulp-sourcemaps");
-
+const plumber = require("gulp-plumber");
 function connectTask(cb) {
   connect.server({
     root: "./dist/",
@@ -30,6 +30,7 @@ function buildHtml(cb) {
 function buildJs(cb) {
   gulp
     .src("./src/js/css.js")
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(
       rollup(
@@ -47,13 +48,14 @@ function buildJs(cb) {
       )
     )
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./dist/js"));
+    .pipe(gulp.dest("./dist/js"))
+    .pipe(connect.reload());
   cb();
 }
 
 function watchTask(cb) {
   gulp.watch("./src/**.html", gulp.series(buildHtml, htmlReload));
-  gulp.watch("./src/js/**.js", gulp.series(buildJs, jsReload));
+  gulp.watch("./src/js/**.js", gulp.series(buildJs));
   cb();
 }
 

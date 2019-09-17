@@ -23,6 +23,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-better-rollup": "^4.0.1",
     "gulp-connect": "^5.7.0",
+    "gulp-plumber": "^1.2.1",
     "gulp-rollup": "^2.16.2",
     "gulp-sourcemaps": "^2.6.5",
     "rollup": "^1.21.2",
