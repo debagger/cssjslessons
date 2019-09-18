@@ -16,11 +16,13 @@ export default class styleSheet {
     this.rules = [];
   }
 
-  rule(selector) {
+  rule(selector, properties) {
     let rule = this.rules.find(r => r.selector == selector);
-    if (rule) return rule;
-    rule = new CSSRule(selector);
-    this.rules.push(rule);
+    if (!rule) {
+      rule = new CSSRule(selector);
+      this.rules.push(rule);
+    }
+    if (properties) rule.props(properties);
     return rule;
   }
 

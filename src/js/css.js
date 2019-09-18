@@ -4,14 +4,10 @@ import mixin from "./mixins.js";
 import mixins from "./mixins.js";
 const mySS = new styleSheet();
 
-mySS
-  .rule("body")
-  .props({ background: "yellow" })
-  .props({ color: "red" });
+mySS.rule("body", { background: "yellow", color: "red" });
 
 mySS
-  .rule("h1")
-  .props({
+  .rule("h1", {
     "font-size": "100px",
     color: "green"
   })
