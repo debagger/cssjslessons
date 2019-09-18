@@ -40,12 +40,14 @@ ${res.join(",\n")}
 const getRule = rule => {
   const selectors = getSelectors(rule.value[0]);
   const [firstSelector, ...otherSelectors] = selectors;
-
+  const extenders = otherSelectors
+    .map(s => `css.rule("${s}").extend(css.rule("${firstSelector}"));`)
+    .join("\n");
   const block = getBlock(rule.value[1]);
   return `
 css.rule(
-  "${firstSelector.trim()}", ${block}
-)${otherSelectors.map(s => `.extend(css.rule("${s.trim()}"))`).join("\n")};`;
+  "${firstSelector.trim()}", ${block})
+${extenders}`;
 };
 
 const getJStyleSheet = node => {
