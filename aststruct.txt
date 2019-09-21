@@ -1,0 +1,2644 @@
+stylesheet
+  comment_singleline:  stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
+  space: 
+
+
+  comment_singleline:  Reboot
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Normalization of HTML elements, manually forked from Normalize.css to remove
+  space: 
+
+  comment_singleline:  styles targeting irrelevant browsers while applying new styles.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Normalize is licensed MIT. https://github.com/necolas/normalize.css
+  space: 
+
+
+
+  comment_singleline:  Document
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  1. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+  space: 
+
+  comment_singleline:  2. Change the default font family in all browsers.
+  space: 
+
+  comment_singleline:  3. Correct the line height in all browsers.
+  space: 
+
+  comment_singleline:  4. Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.
+  space: 
+
+  comment_singleline:  5. Change the default tap highlight to be completely transparent in iOS.
+  space: 
+
+
+  rule
+    selector
+      operator: *
+      punctuation: ,
+      space: 
+
+      operator: *
+      punctuation: :
+      pseudo_class
+        identifier: before
+      punctuation: ,
+      space: 
+
+      operator: *
+      punctuation: :
+      pseudo_class
+        identifier: after
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: box-sizing
+        punctuation: :
+        value
+          space:  
+          identifier: border-box
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: html
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: font-family
+        punctuation: :
+        value
+          space:  
+          identifier: sans-serif
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          number: 1.15
+        punctuation: ;
+      space:  
+      comment_singleline:  3
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-text-size-adjust
+        punctuation: :
+        value
+          space:  
+          number: 100
+          operator: %
+        punctuation: ;
+      space:  
+      comment_singleline:  4
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-tap-highlight-color
+        punctuation: :
+        value
+          space:  
+          function
+            identifier: rgba
+            arguments
+              variable: black
+              punctuation: ,
+              space:  
+              number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  5
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
+  space: 
+
+  comment_singleline:  TODO: remove in v5
+  space: 
+
+  comment_singleline:  stylelint-disable-next-line selector-list-comma-newline-after
+  space: 
+
+  rule
+    selector
+      identifier: article
+      punctuation: ,
+      space:  
+      identifier: aside
+      punctuation: ,
+      space:  
+      identifier: figcaption
+      punctuation: ,
+      space:  
+      identifier: figure
+      punctuation: ,
+      space:  
+      identifier: footer
+      punctuation: ,
+      space:  
+      identifier: header
+      punctuation: ,
+      space:  
+      identifier: hgroup
+      punctuation: ,
+      space:  
+      identifier: main
+      punctuation: ,
+      space:  
+      identifier: nav
+      punctuation: ,
+      space:  
+      identifier: section
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: block
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Body
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  1. Remove the margin in all browsers.
+  space: 
+
+  comment_singleline:  2. As a best practice, apply a default `background-color`.
+  space: 
+
+  comment_singleline:  3. Set an explicit initial text-align value so that we can later use
+  space: 
+
+  comment_singleline:     the `inherit` value on things like `<th>` elements.
+  space: 
+
+
+  rule
+    selector
+      identifier: body
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+  
+      declaration
+        property
+          identifier: font-family
+        punctuation: :
+        value
+          space:  
+          variable: font-family-base
+        punctuation: ;
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          variable: font-size-base
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: font-weight
+        punctuation: :
+        value
+          space:  
+          variable: font-weight-base
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          variable: line-height-base
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: color
+        punctuation: :
+        value
+          space:  
+          variable: body-color
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: text-align
+        punctuation: :
+        value
+          space:  
+          identifier: left
+        punctuation: ;
+      space:  
+      comment_singleline:  3
+      space: 
+  
+      declaration
+        property
+          identifier: background-color
+        punctuation: :
+        value
+          space:  
+          variable: body-bg
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Suppress the focus outline on elements that cannot be accessed via keyboard.
+  space: 
+
+  comment_singleline:  This prevents an unwanted focus outline from appearing around elements that
+  space: 
+
+  comment_singleline:  might still respond to pointer events.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Credit: https://github.com/suitcss/base
+  space: 
+
+  rule
+    selector
+      attribute
+        identifier: tabindex
+        operator: =
+        string_double: -1
+      pseudo_class
+        identifier: focus
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: outline
+        punctuation: :
+        value
+          space:  
+          number: 0
+          space:  
+          operator: !
+          identifier: important
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline:  Content grouping
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  1. Add the correct box sizing in Firefox.
+  space: 
+
+  comment_singleline:  2. Show the overflow in Edge and IE.
+  space: 
+
+
+  rule
+    selector
+      identifier: hr
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: box-sizing
+        punctuation: :
+        value
+          space:  
+          identifier: content-box
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+  
+      declaration
+        property
+          identifier: height
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+  
+      declaration
+        property
+          identifier: overflow
+        punctuation: :
+        value
+          space:  
+          identifier: visible
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Typography
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  comment_singleline:  Remove top margins from headings
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+  space: 
+
+  comment_singleline:  margin for easier control within type scales as it avoids margin collapsing.
+  space: 
+
+  comment_singleline:  stylelint-disable-next-line selector-list-comma-newline-after
+  space: 
+
+  rule
+    selector
+      identifier: h1
+      punctuation: ,
+      space:  
+      identifier: h2
+      punctuation: ,
+      space:  
+      identifier: h3
+      punctuation: ,
+      space:  
+      identifier: h4
+      punctuation: ,
+      space:  
+      identifier: h5
+      punctuation: ,
+      space:  
+      identifier: h6
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-top
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          variable: headings-margin-bottom
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Reset margins on paragraphs
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Similarly, the top margin on `<p>`s get reset. However, we also reset the
+  space: 
+
+  comment_singleline:  bottom margin to use `rem` units instead of `em`.
+  space: 
+
+  rule
+    selector
+      identifier: p
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-top
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          variable: paragraph-margin-bottom
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Abbreviations
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  1. Duplicate behavior to the data-* attribute for our tooltip plugin
+  space: 
+
+  comment_singleline:  2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+  space: 
+
+  comment_singleline:  3. Add explicit cursor to indicate changed behavior.
+  space: 
+
+  comment_singleline:  4. Remove the bottom border in Firefox 39-.
+  space: 
+
+  comment_singleline:  5. Prevent the text-decoration to be skipped.
+  space: 
+
+
+  rule
+    selector
+      identifier: abbr
+      attribute
+        identifier: title
+      punctuation: ,
+      space: 
+
+      identifier: abbr
+      attribute
+        identifier: data-original-title
+      space:  
+    block
+      space:  
+      comment_singleline:  1
+      space: 
+  
+      declaration
+        property
+          identifier: text-decoration
+        punctuation: :
+        value
+          space:  
+          identifier: underline
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+  
+      declaration
+        property
+          identifier: text-decoration
+        punctuation: :
+        value
+          space:  
+          identifier: underline
+          space:  
+          identifier: dotted
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+  
+      declaration
+        property
+          identifier: cursor
+        punctuation: :
+        value
+          space:  
+          identifier: help
+        punctuation: ;
+      space:  
+      comment_singleline:  3
+      space: 
+  
+      declaration
+        property
+          identifier: border-bottom
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  4
+      space: 
+  
+      declaration
+        property
+          identifier: text-decoration-skip-ink
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space:  
+      comment_singleline:  5
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: address
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: 1
+          identifier: rem
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: font-style
+        punctuation: :
+        value
+          space:  
+          identifier: normal
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: ol
+      punctuation: ,
+      space: 
+
+      identifier: ul
+      punctuation: ,
+      space: 
+
+      identifier: dl
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-top
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: 1
+          identifier: rem
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: ol
+      space:  
+      identifier: ol
+      punctuation: ,
+      space: 
+
+      identifier: ul
+      space:  
+      identifier: ul
+      punctuation: ,
+      space: 
+
+      identifier: ol
+      space:  
+      identifier: ul
+      punctuation: ,
+      space: 
+
+      identifier: ul
+      space:  
+      identifier: ol
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: dt
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: font-weight
+        punctuation: :
+        value
+          space:  
+          variable: dt-font-weight
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: dd
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: .5
+          identifier: rem
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-left
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  Undo browser default
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: blockquote
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin
+        punctuation: :
+        value
+          space:  
+          number: 0
+          space:  
+          number: 0
+          space:  
+          number: 1
+          identifier: rem
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: b
+      punctuation: ,
+      space: 
+
+      identifier: strong
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: font-weight
+        punctuation: :
+        value
+          space:  
+          variable: font-weight-bolder
+        punctuation: ;
+      space:  
+      comment_singleline:  Add the correct font weight in Chrome, Edge, and Safari
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: small
+      space:  
+    block
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          number: 80
+          operator: %
+        punctuation: ;
+      space:  
+      comment_singleline:  Add the correct font size in all browsers
+      space: 
+
+  space: 
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Prevent `sub` and `sup` elements from affecting the line height in
+  space: 
+
+  comment_singleline:  all browsers.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: sub
+      punctuation: ,
+      space: 
+
+      identifier: sup
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: position
+        punctuation: :
+        value
+          space:  
+          identifier: relative
+        punctuation: ;
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          number: 75
+          operator: %
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: vertical-align
+        punctuation: :
+        value
+          space:  
+          identifier: baseline
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: sub
+      space:  
+    block
+      space:  
+      declaration
+        property
+          identifier: bottom
+        punctuation: :
+        value
+          space:  
+          operator: -
+          number: .25
+          identifier: em
+        punctuation: ;
+      space:  
+  space: 
+
+  rule
+    selector
+      identifier: sup
+      space:  
+    block
+      space:  
+      declaration
+        property
+          identifier: top
+        punctuation: :
+        value
+          space:  
+          operator: -
+          number: .5
+          identifier: em
+        punctuation: ;
+      space:  
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Links
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: a
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: color
+        punctuation: :
+        value
+          space:  
+          variable: link-color
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: text-decoration
+        punctuation: :
+        value
+          space:  
+          variable: link-decoration
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: background-color
+        punctuation: :
+        value
+          space:  
+          identifier: transparent
+        punctuation: ;
+      space:  
+      comment_singleline:  Remove the gray background on active links in IE 10.
+      space: 
+
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: hover
+        space:  
+        block
+          space: 
+    
+          declaration
+            property
+              identifier: color
+            punctuation: :
+            value
+              space:  
+              variable: link-hover-color
+            punctuation: ;
+          space: 
+    
+          declaration
+            property
+              identifier: text-decoration
+            punctuation: :
+            value
+              space:  
+              variable: link-hover-decoration
+            punctuation: ;
+          space: 
+  
+      space: 
+
+  space: 
+
+
+  comment_singleline:  And undo these styles for placeholder links/named anchors (without href)
+  space: 
+
+  comment_singleline:  which have not been made explicitly keyboard-focusable (without tabindex).
+  space: 
+
+  comment_singleline:  It would be more straightforward to just use a[href] in previous block, but that
+  space: 
+
+  comment_singleline:  causes specificity issues in many other styles that are too complex to fix.
+  space: 
+
+  comment_singleline:  See https://github.com/twbs/bootstrap/issues/19402
+  space: 
+
+
+  rule
+    selector
+      identifier: a
+      function
+        pseudo_class
+          identifier: not
+        arguments
+          attribute
+            identifier: href
+      function
+        pseudo_class
+          identifier: not
+        arguments
+          attribute
+            identifier: tabindex
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: color
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: text-decoration
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space: 
+
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: hover-focus
+        space:  
+        block
+          space: 
+    
+          declaration
+            property
+              identifier: color
+            punctuation: :
+            value
+              space:  
+              identifier: inherit
+            punctuation: ;
+          space: 
+    
+          declaration
+            property
+              identifier: text-decoration
+            punctuation: :
+            value
+              space:  
+              identifier: none
+            punctuation: ;
+          space: 
+  
+      space: 
+
+  
+      rule
+        selector
+          operator: &
+          pseudo_class
+            identifier: focus
+          space:  
+        block
+          space: 
+    
+          declaration
+            property
+              identifier: outline
+            punctuation: :
+            value
+              space:  
+              number: 0
+            punctuation: ;
+          space: 
+  
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Code
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: pre
+      punctuation: ,
+      space: 
+
+      identifier: code
+      punctuation: ,
+      space: 
+
+      identifier: kbd
+      punctuation: ,
+      space: 
+
+      identifier: samp
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: font-family
+        punctuation: :
+        value
+          space:  
+          variable: font-family-monospace
+        punctuation: ;
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          number: 1
+          identifier: em
+        punctuation: ;
+      space:  
+      comment_singleline:  Correct the odd `em` font sizing in all browsers.
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: pre
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Remove browser default top margin
+      space: 
+  
+      declaration
+        property
+          identifier: margin-top
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      comment_singleline:  Reset browser default of `1em` to use `rem`s
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: 1
+          identifier: rem
+        punctuation: ;
+      space: 
+  
+      comment_singleline:  Don't allow content to break outside
+      space: 
+  
+      declaration
+        property
+          identifier: overflow
+        punctuation: :
+        value
+          space:  
+          identifier: auto
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Figures
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: figure
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Apply a consistent margin strategy (matches our type styles).
+      space: 
+  
+      declaration
+        property
+          identifier: margin
+        punctuation: :
+        value
+          space:  
+          number: 0
+          space:  
+          number: 0
+          space:  
+          number: 1
+          identifier: rem
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Images and content
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: img
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: vertical-align
+        punctuation: :
+        value
+          space:  
+          identifier: middle
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: border-style
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space:  
+      comment_singleline:  Remove the border on images inside links in IE 10-.
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: svg
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Workaround for the SVG overflow bug in IE10/11 is still required.
+      space: 
+  
+      comment_singleline:  See https://github.com/twbs/bootstrap/issues/26878
+      space: 
+  
+      declaration
+        property
+          identifier: overflow
+        punctuation: :
+        value
+          space:  
+          identifier: hidden
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: vertical-align
+        punctuation: :
+        value
+          space:  
+          identifier: middle
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Tables
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: table
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: border-collapse
+        punctuation: :
+        value
+          space:  
+          identifier: collapse
+        punctuation: ;
+      space:  
+      comment_singleline:  Prevent double borders
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: caption
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: padding-top
+        punctuation: :
+        value
+          space:  
+          variable: table-cell-padding
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: padding-bottom
+        punctuation: :
+        value
+          space:  
+          variable: table-cell-padding
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: color
+        punctuation: :
+        value
+          space:  
+          variable: table-caption-color
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: text-align
+        punctuation: :
+        value
+          space:  
+          identifier: left
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: caption-side
+        punctuation: :
+        value
+          space:  
+          identifier: bottom
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: th
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Matches default `<td>` alignment by inheriting from the `<body>`, or the
+      space: 
+  
+      comment_singleline:  closest parent with a set `text-align`.
+      space: 
+  
+      declaration
+        property
+          identifier: text-align
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Forms
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: label
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Allow labels to use `margin` for spacing.
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: inline-block
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          variable: label-margin-bottom
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Remove the default `border-radius` that macOS Chrome adds.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Details at https://github.com/twbs/bootstrap/issues/24093
+  space: 
+
+  rule
+    selector
+      identifier: button
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  stylelint-disable-next-line property-blacklist
+      space: 
+  
+      declaration
+        property
+          identifier: border-radius
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Work around a Firefox/IE bug where the transparent `button` background
+  space: 
+
+  comment_singleline:  results in a loss of the default `button` focus styles.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Credit: https://github.com/suitcss/base/
+  space: 
+
+  rule
+    selector
+      identifier: button
+      pseudo_class
+        identifier: focus
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: outline
+        punctuation: :
+        value
+          space:  
+          number: 1
+          identifier: px
+          space:  
+          identifier: dotted
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: outline
+        punctuation: :
+        value
+          space:  
+          number: 5
+          identifier: px
+          space:  
+          identifier: auto
+          space:  
+          operator: -
+          identifier: webkit-focus-ring-color
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: input
+      punctuation: ,
+      space: 
+
+      identifier: button
+      punctuation: ,
+      space: 
+
+      identifier: select
+      punctuation: ,
+      space: 
+
+      identifier: optgroup
+      punctuation: ,
+      space: 
+
+      identifier: textarea
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: margin
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  Remove the margin in Firefox and Safari
+      space: 
+  
+      declaration
+        property
+          identifier: font-family
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          identifier: inherit
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: button
+      punctuation: ,
+      space: 
+
+      identifier: input
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: overflow
+        punctuation: :
+        value
+          space:  
+          identifier: visible
+        punctuation: ;
+      space:  
+      comment_singleline:  Show the overflow in Edge
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: button
+      punctuation: ,
+      space: 
+
+      identifier: select
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: text-transform
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space:  
+      comment_singleline:  Remove the inheritance of text transform in Firefox
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Remove the inheritance of word-wrap in Safari.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Details at https://github.com/twbs/bootstrap/issues/24990
+  space: 
+
+  rule
+    selector
+      identifier: select
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: word-wrap
+        punctuation: :
+        value
+          space:  
+          identifier: normal
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+
+  comment_singleline:  1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+  space: 
+
+  comment_singleline:     controls in Android 4.
+  space: 
+
+  comment_singleline:  2. Correct the inability to style clickable types in iOS and Safari.
+  space: 
+
+  rule
+    selector
+      identifier: button
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: button
+      punctuation: ,
+      space:  
+      comment_singleline:  1
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: reset
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: submit
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-appearance
+        punctuation: :
+        value
+          space:  
+          identifier: button
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Opinionated: add "hand" cursor to non-disabled button elements.
+  space: 
+
+  atrule
+    atkeyword: if
+    space:  
+    variable: enable-pointer-cursor-for-buttons
+    space:  
+    block
+      space: 
+  
+      rule
+        selector
+          identifier: button
+          punctuation: ,
+          space: 
+  
+          attribute
+            identifier: type
+            operator: =
+            string_double: button
+          punctuation: ,
+          space: 
+  
+          attribute
+            identifier: type
+            operator: =
+            string_double: reset
+          punctuation: ,
+          space: 
+  
+          attribute
+            identifier: type
+            operator: =
+            string_double: submit
+          space:  
+        block
+          space: 
+    
+          rule
+            selector
+              operator: &
+              function
+                pseudo_class
+                  identifier: not
+                arguments
+                  pseudo_class
+                    identifier: disabled
+              space:  
+            block
+              space: 
+      
+              declaration
+                property
+                  identifier: cursor
+                punctuation: :
+                value
+                  space:  
+                  identifier: pointer
+                punctuation: ;
+              space: 
+    
+          space: 
+  
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
+  space: 
+
+  rule
+    selector
+      identifier: button
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: moz-focus-inner
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: button
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: moz-focus-inner
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: reset
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: moz-focus-inner
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: submit
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: moz-focus-inner
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: padding
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: border-style
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: radio
+      punctuation: ,
+      space: 
+
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: checkbox
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: box-sizing
+        punctuation: :
+        value
+          space:  
+          identifier: border-box
+        punctuation: ;
+      space:  
+      comment_singleline:  1. Add the correct box sizing in IE 10-
+      space: 
+  
+      declaration
+        property
+          identifier: padding
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space:  
+      comment_singleline:  2. Remove the padding in IE 10-
+      space: 
+
+  space: 
+
+
+
+  rule
+    selector
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: date
+      punctuation: ,
+      space: 
+
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: time
+      punctuation: ,
+      space: 
+
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: datetime-local
+      punctuation: ,
+      space: 
+
+      identifier: input
+      attribute
+        identifier: type
+        operator: =
+        string_double: month
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Remove the default appearance of temporal inputs to avoid a Mobile Safari
+      space: 
+  
+      comment_singleline:  bug where setting a custom line-height prevents text from being vertically
+      space: 
+  
+      comment_singleline:  centered within the input.
+      space: 
+  
+      comment_singleline:  See https://bugs.webkit.org/show_bug.cgi?id=139848
+      space: 
+  
+      comment_singleline:  and https://github.com/twbs/bootstrap/issues/11266
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-appearance
+        punctuation: :
+        value
+          space:  
+          identifier: listbox
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: textarea
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: overflow
+        punctuation: :
+        value
+          space:  
+          identifier: auto
+        punctuation: ;
+      space:  
+      comment_singleline:  Remove the default vertical scrollbar in IE.
+      space: 
+  
+      comment_singleline:  Textareas should really only resize vertically so they don't break their (horizontal) containers.
+      space: 
+  
+      declaration
+        property
+          identifier: resize
+        punctuation: :
+        value
+          space:  
+          identifier: vertical
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: fieldset
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  Browsers set a default `min-width: min-content;` on fieldsets,
+      space: 
+  
+      comment_singleline:  unlike e.g. `<div>`s, which have `min-width: 0;` by default.
+      space: 
+  
+      comment_singleline:  So we reset that to ensure fieldsets behave more like a standard block element.
+      space: 
+  
+      comment_singleline:  See https://github.com/twbs/bootstrap/issues/12359
+      space: 
+  
+      comment_singleline:  and https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements
+      space: 
+  
+      declaration
+        property
+          identifier: min-width
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      comment_singleline:  Reset the default outline behavior of fieldsets so they don't affect page layout.
+      space: 
+  
+      declaration
+        property
+          identifier: padding
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: border
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline:  1. Correct the text wrapping in Edge and IE.
+  space: 
+
+  comment_singleline:  2. Correct the color inheritance from `fieldset` elements in IE.
+  space: 
+
+  rule
+    selector
+      identifier: legend
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: block
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: width
+        punctuation: :
+        value
+          space:  
+          number: 100
+          operator: %
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: max-width
+        punctuation: :
+        value
+          space:  
+          number: 100
+          operator: %
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+  
+      declaration
+        property
+          identifier: padding
+        punctuation: :
+        value
+          space:  
+          number: 0
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: margin-bottom
+        punctuation: :
+        value
+          space:  
+          number: .5
+          identifier: rem
+        punctuation: ;
+      space: 
+  
+      atrule
+        atkeyword: include
+        space:  
+        identifier: font-size
+        arguments
+          number: 1.5
+          identifier: rem
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: line-height
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space: 
+  
+      declaration
+        property
+          identifier: color
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+  
+      declaration
+        property
+          identifier: white-space
+        punctuation: :
+        value
+          space:  
+          identifier: normal
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: progress
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: vertical-align
+        punctuation: :
+        value
+          space:  
+          identifier: baseline
+        punctuation: ;
+      space:  
+      comment_singleline:  Add the correct vertical alignment in Chrome, Firefox, and Opera.
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Correct the cursor style of increment and decrement buttons in Chrome.
+  space: 
+
+  rule
+    selector
+      attribute
+        identifier: type
+        operator: =
+        string_double: number
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: webkit-inner-spin-button
+      punctuation: ,
+      space: 
+
+      attribute
+        identifier: type
+        operator: =
+        string_double: number
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: webkit-outer-spin-button
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: height
+        punctuation: :
+        value
+          space:  
+          identifier: auto
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      attribute
+        identifier: type
+        operator: =
+        string_double: search
+      space:  
+    block
+      space: 
+  
+      comment_singleline:  This overrides the extra rounded corners on search inputs in iOS so that our
+      space: 
+  
+      comment_singleline:  `.form-control` class can properly style them. Note that this cannot simply
+      space: 
+  
+      comment_singleline:  be added to `.form-control` as it's not specific enough. For details, see
+      space: 
+  
+      comment_singleline:  https://github.com/twbs/bootstrap/issues/11586.
+      space: 
+  
+      declaration
+        property
+          identifier: outline-offset
+        punctuation: :
+        value
+          space:  
+          operator: -
+          number: 2
+          identifier: px
+        punctuation: ;
+      space:  
+      comment_singleline:  2. Correct the outline style in Safari.
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-appearance
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Remove the inner padding in Chrome and Safari on macOS.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      attribute
+        identifier: type
+        operator: =
+        string_double: search
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: webkit-search-decoration
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-appearance
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  1. Correct the inability to style clickable types in iOS and Safari.
+  space: 
+
+  comment_singleline:  2. Change font properties to `inherit` in Safari.
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      punctuation: :
+      punctuation: :
+      operator: -
+      identifier: webkit-file-upload-button
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: font
+        punctuation: :
+        value
+          space:  
+          identifier: inherit
+        punctuation: ;
+      space:  
+      comment_singleline:  2
+      space: 
+  
+      declaration
+        property
+          operator: -
+          identifier: webkit-appearance
+        punctuation: :
+        value
+          space:  
+          identifier: button
+        punctuation: ;
+      space:  
+      comment_singleline:  1
+      space: 
+
+  space: 
+
+
+  comment_singleline: 
+  space: 
+
+  comment_singleline:  Correct element displays
+  space: 
+
+  comment_singleline: 
+  space: 
+
+
+  rule
+    selector
+      identifier: output
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: inline-block
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: summary
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: list-item
+        punctuation: ;
+      space:  
+      comment_singleline:  Add the correct display in all browsers
+      space: 
+  
+      declaration
+        property
+          identifier: cursor
+        punctuation: :
+        value
+          space:  
+          identifier: pointer
+        punctuation: ;
+      space: 
+
+  space: 
+
+
+  rule
+    selector
+      identifier: template
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: none
+        punctuation: ;
+      space:  
+      comment_singleline:  Add the correct display in IE
+      space: 
+
+  space: 
+
+
+  comment_singleline:  Always hide an element with the `hidden` HTML attribute (from PureCSS).
+  space: 
+
+  comment_singleline:  Needed for proper display in IE 10-.
+  space: 
+
+  rule
+    selector
+      attribute
+        identifier: hidden
+      space:  
+    block
+      space: 
+  
+      declaration
+        property
+          identifier: display
+        punctuation: :
+        value
+          space:  
+          identifier: none
+          space:  
+          operator: !
+          identifier: important
+        punctuation: ;
+      space: 
+
+  space: 
