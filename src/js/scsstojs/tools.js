@@ -7,6 +7,13 @@ function nodeToString(ast) {
   }
   if (ast.type == "attribute")
     return `[${ast.value.map(nodeToString).join("")}]`;
+
+  if (ast.type == "pseudo_class")
+    return `:${ast.value.map(nodeToString).join("")}`;
+
+  if (ast.type == "arguments")
+    return `(${ast.value.map(nodeToString).join("")})`;
+
   return ast.value
     .map(nodeToString)
     .join("")

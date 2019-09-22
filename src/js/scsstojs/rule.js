@@ -10,7 +10,7 @@ exports.rule = class rule {
         this.selector = new selector(ast);
       },
       block: ast => {
-        this.block = new block(ast);
+        this.block = new block(ast, rule);
       }
     };
     ast.value.forEach(i =>
@@ -26,8 +26,8 @@ exports.rule = class rule {
     const otherRules = other
       .map(selector => `css.rule("${selector}").extend("${first}");`)
       .join("\n");
-    return `css.rule("${first}")
-${this.block.toString()}
+    return `
+css.rule("${first}")${this.block.toString()}
 ${otherRules}
 
 `;

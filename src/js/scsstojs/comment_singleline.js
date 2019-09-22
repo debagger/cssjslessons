@@ -3,6 +3,6 @@ exports.comment_singleline = class comment_singleline {
     this.comment = ast.value;
   }
   toString() {
-    return `//${this.comment}\n`;
+    return `//${this.comment.replace("\n", "")}`;
   }
 };

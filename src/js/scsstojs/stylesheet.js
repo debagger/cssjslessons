@@ -29,6 +29,11 @@ exports.Stylesheet = class Stylesheet {
     );
   }
   toString() {
-    return this.items.map(i => i.toString()).join("");
+    return this.items
+      .map(item => {
+        if (item instanceof comment_singleline) return item.toString() + "\n";
+        return item.toString();
+      })
+      .join("");
   }
 };

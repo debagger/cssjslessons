@@ -2,9 +2,12 @@ const { declaration } = require("./declaration");
 const { space } = require("./space");
 const { comment_singleline } = require("./comment_singleline");
 const { atrule } = require("./atrule");
+let rule;
 exports.block = class block {
-  constructor(ast) {
+  constructor(ast, _rule) {
+    rule = _rule;
     const types = {
+      rule: ast => (this.rule = new rule(ast)),
       declaration: ast => new declaration(ast),
       space: ast => new space(ast),
       comment_singleline: ast => new comment_singleline(ast),
@@ -20,6 +23,14 @@ exports.block = class block {
   }
 
   toString() {
-    return this.items.map(item => `.props(${item.toString()})`);
+    return this.items
+      .filter(item => !(item instanceof space))
+      .map(item => {
+        if (item instanceof declaration) return `\n.props(${item.toString()})`;
+        if (item instanceof atrule) return `\n.props(${item.toString()})`;
+        if (item instanceof comment_singleline) return item.toString();
+        if (item instanceof rule) return `\n.nested(${item.toString()})`;
+      })
+      .join("");
   }
 };
