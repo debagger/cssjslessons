@@ -1,4 +1,4 @@
-export default class CSSRule {
+module.exports = class CSSRule {
   constructor(selector) {
     this.selector = selector;
     this.properties = new Map();
@@ -60,4 +60,4 @@ export default class CSSRule {
 
     return [rule, ...medias, nest].join("\n\n");
   }
-}
+};

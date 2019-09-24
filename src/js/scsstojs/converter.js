@@ -1,4 +1,4 @@
-const { Stylesheet } = require("./stylesheet");
+const Stylesheet = require("./stylesheet");
 const fs = require("fs");
 const { parse } = require("scss-parser");
 

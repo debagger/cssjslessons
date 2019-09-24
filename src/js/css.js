@@ -1,7 +1,7 @@
 "use strict";
-import styleSheet from "./ss.js";
-import mixin from "./mixins.js";
-import mixins from "./mixins.js";
+const styleSheet = require("./ss");
+const mixin = require("./mixins");
+const mixins = require("./mixins");
 const mySS = new styleSheet();
 
 mySS.rule("body", { background: "yellow", color: "red" });

@@ -1,4 +1,4 @@
-import CSSRule from "./rule.js";
+const CSSRule = require("./rule.js");
 function getCssRuleStr(selector, bodyObj) {
   return `${selector} {\n${getBodyStr(bodyObj)}\n}`;
 }
@@ -11,7 +11,7 @@ function getBodyStr(bodyObj) {
 /**
  * Root class for StyleSheet generate
  */
-export default class styleSheet {
+module.exports = class styleSheet {
   constructor() {
     this.rules = [];
   }
@@ -31,9 +31,11 @@ export default class styleSheet {
   }
 
   attach() {
-    const styleEl = document.createElement("style");
-    styleEl.textContent = this.css();
-    const myStyle = document.head.appendChild(styleEl);
-    return myStyle.sheet;
+    if (document) {
+      const styleEl = document.createElement("style");
+      styleEl.textContent = this.css();
+      const myStyle = document.head.appendChild(styleEl);
+      return myStyle.sheet;
+    }
   }
-}
+};

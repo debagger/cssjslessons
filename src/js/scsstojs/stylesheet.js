@@ -3,7 +3,7 @@ const { rule } = require("./rule");
 const { space } = require("./space");
 const { atrule } = require("./atrule");
 
-exports.Stylesheet = class Stylesheet {
+module.exports = class Stylesheet {
   constructor(ast) {
     const types = {
       rule: ast => new rule(ast),
@@ -21,7 +21,7 @@ exports.Stylesheet = class Stylesheet {
     );
   }
   toString() {
-    return this.items
+    const items = this.items
       .map((item, index, arr) => {
         const isLast = arr.length == index - 1;
         if (item instanceof comment_singleline) {
@@ -35,5 +35,9 @@ exports.Stylesheet = class Stylesheet {
         return item.toString();
       })
       .join("");
+    return `
+const styleSheet = require("../src/js/ss.js");
+const css = new styleSheet();
+${items}`;
   }
 };
