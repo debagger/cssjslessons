@@ -3,21 +3,13 @@ const { rule } = require("./rule");
 const { space } = require("./space");
 const { atrule } = require("./atrule");
 
-const fs = require("fs");
-const { parse } = require("scss-parser");
-
 exports.Stylesheet = class Stylesheet {
-  constructor(rootDirectory, filename) {
-    this.rootDirectory = rootDirectory;
-
-    const f = fs.readFileSync(this.rootDirectory + filename, "utf-8");
-    const ast = parse(f);
-
+  constructor(ast) {
     const types = {
       rule: ast => new rule(ast),
       comment_singleline: ast => new comment_singleline(ast),
       space: ast => new space(ast),
-      atrule: ast => new atrule(ast)
+      atrule: ast => atrule(ast)
     };
 
     this.items = ast.value.map(i =>
@@ -30,8 +22,16 @@ exports.Stylesheet = class Stylesheet {
   }
   toString() {
     return this.items
-      .map(item => {
-        if (item instanceof comment_singleline) return item.toString() + "\n";
+      .map((item, index, arr) => {
+        const isLast = arr.length == index - 1;
+        if (item instanceof comment_singleline) {
+          return item.toString() + "\n";
+        }
+        if (item instanceof rule) {
+          if (!isLast) return item.toString();
+          return item.toString() + "\n\n";
+        }
+
         return item.toString();
       })
       .join("");

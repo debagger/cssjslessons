@@ -2,15 +2,16 @@ const { nodeToString } = require("./tools");
 const { selector } = require("./selector");
 const { block } = require("./block");
 exports.rule = class rule {
-  constructor(ast) {
+  constructor(ast, parentRule) {
     this.ast = ast;
+    this.parentRule = parentRule;
 
     const types = {
       selector: ast => {
         this.selector = new selector(ast);
       },
       block: ast => {
-        this.block = new block(ast, rule);
+        this.block = new block(ast, this);
       }
     };
     ast.value.forEach(i =>
@@ -28,8 +29,6 @@ exports.rule = class rule {
       .join("\n");
     return `
 css.rule("${first}")${this.block.toString()}
-${otherRules}
-
-`;
+${otherRules}`;
   }
 };

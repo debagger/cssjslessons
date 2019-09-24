@@ -2,12 +2,13 @@ const { declaration } = require("./declaration");
 const { space } = require("./space");
 const { comment_singleline } = require("./comment_singleline");
 const { atrule } = require("./atrule");
-let rule;
+
 exports.block = class block {
-  constructor(ast, _rule) {
-    rule = _rule;
+  constructor(ast, parentRule) {
+    const { rule } = require("./rule");
+    this.parentRule = parentRule;
     const types = {
-      rule: ast => (this.rule = new rule(ast)),
+      rule: ast => new rule(ast, this.parentRule),
       declaration: ast => new declaration(ast),
       space: ast => new space(ast),
       comment_singleline: ast => new comment_singleline(ast),
@@ -23,13 +24,34 @@ exports.block = class block {
   }
 
   toString() {
+    const { rule } = require("./rule");
+    let previtem;
     return this.items
       .filter(item => !(item instanceof space))
-      .map(item => {
-        if (item instanceof declaration) return `\n.props(${item.toString()})`;
-        if (item instanceof atrule) return `\n.props(${item.toString()})`;
-        if (item instanceof comment_singleline) return item.toString();
-        if (item instanceof rule) return `\n.nested(${item.toString()})`;
+      .map((item, i, arr) => {
+        const prev = i - 1 >= 0 ? arr[i - 1] : undefined;
+
+        if (item instanceof declaration) {
+          let res = "";
+          if (prev instanceof rule) res += "\n.parent";
+          res += `\n.props(${item.toString()})`;
+          return res;
+        }
+
+        if (item instanceof atrule) {
+          return `\n.props(${item.toString()})`;
+        }
+
+        if (item instanceof comment_singleline)
+          return prev instanceof comment_singleline
+            ? "\n" + item.toString()
+            : item.toString();
+
+        if (item instanceof rule) {
+          const [firstSelector, ...otherSelectors] = item.selector.selectors;
+
+          return `\n.nested(${firstSelector})${item.block.toString()}`;
+        }
       })
       .join("");
   }
