@@ -1,5 +1,5 @@
 const { nodeToString } = require("./tools");
-exports._arguments = class _arguments {
+module.exports = class _arguments {
   constructor(ast) {
     this.ast = ast;
   }

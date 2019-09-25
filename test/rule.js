@@ -1,10 +1,10 @@
 const assert = require("assert");
-const { rule } = require("../src/js/scsstojs/rule");
+const rule = require("../src/js/scsstojs/rule");
 const { nodeToString } = require("../src/js/scsstojs/tools");
-const { parse } = require("scss-parser");
+const { parse, stringify } = require("scss-parser");
 const fs = require("fs");
 const styleSheet = require("../src/js/ss.js");
-const css = new styleSheet();
+let css = new styleSheet();
 
 describe("Test rules from _reboot.scss", function() {
   const sourceSCSS = fs.readFileSync(
@@ -15,6 +15,9 @@ describe("Test rules from _reboot.scss", function() {
   const ast = parse(sourceSCSS);
 
   const rules = ast.value.filter(item => item.type == "rule");
+  this.beforeEach(function() {
+    css = new styleSheet();
+  });
   rules.forEach((item, index) => {
     const selector = nodeToString(
       item.value.find(item => item.type == "selector")

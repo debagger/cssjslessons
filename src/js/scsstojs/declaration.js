@@ -1,5 +1,5 @@
 const property = require("./property");
-const { value } = require("./value");
+const value = require("./value");
 
 module.exports = class declaration {
   constructor(ast) {

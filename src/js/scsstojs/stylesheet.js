@@ -1,10 +1,11 @@
-const { comment_singleline } = require("./comment_singleline");
-const { rule } = require("./rule");
-const { space } = require("./space");
-const { atrule } = require("./atrule");
+const comment_singleline = require("./comment_singleline");
+const space = require("./space");
+const atrule = require("./atrule");
 
 module.exports = class Stylesheet {
   constructor(ast) {
+    const rule = require("./rule");
+
     const types = {
       rule: ast => new rule(ast),
       comment_singleline: ast => new comment_singleline(ast),
@@ -21,6 +22,8 @@ module.exports = class Stylesheet {
     );
   }
   toString() {
+    const rule = require("./rule");
+
     const items = this.items
       .map((item, index, arr) => {
         const isLast = arr.length == index - 1;

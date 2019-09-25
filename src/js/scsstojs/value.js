@@ -1,5 +1,5 @@
 const { nodeToString } = require("./tools");
-exports.value = class value {
+module.exports = class value {
   constructor(ast) {
     this.ast = ast;
   }

@@ -1,7 +1,7 @@
 const { nodeToString } = require("./tools");
 const selector = require("./selector");
 const block = require("./block");
-exports.rule = class rule {
+module.exports = class rule {
   constructor(ast, parentRule) {
     this.ast = ast;
     this.parentRule = parentRule;

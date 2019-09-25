@@ -1,16 +1,24 @@
-const { space } = require("./space");
-const { _arguments } = require("./arguments");
-const { variable } = require("./variable");
+const space = require("./space");
+const _arguments = require("./arguments");
+const variable = require("./variable");
 const { nodeToString } = require("./tools");
 
 class include {
   constructor(ast) {
     const types = {
-      atkeyword: ast => (this.atkeyword = ast.value),
+      atkeyword: ast => {
+        this.atkeyword = ast.value;
+      },
       space: ast => new space(ast),
-      identifier: ast => (this.identifier = ast.value),
-      arguments: ast => (this.arguments = new _arguments(ast)),
-      block: ast => (this.content = ast),
+      identifier: ast => {
+        this.identifier = ast.value;
+      },
+      arguments: ast => {
+        this.arguments = new _arguments(ast);
+      },
+      block: ast => {
+        this.content = ast;
+      },
       punctuation: ast => "",
       variable: ast => new variable(ast)
     };
@@ -87,7 +95,7 @@ if(${this.variable.toString()}){${this.content
   }
 }
 
-exports.atrule = function(ast) {
+module.exports = function(ast) {
   const atkeyword = ast.value.find(i => i.type == "atkeyword").value;
   const atrules = {
     include: include,

@@ -1,7 +1,7 @@
 const declaration = require("./declaration");
-const { space } = require("./space");
-const { comment_singleline } = require("./comment_singleline");
-const { atrule } = require("./atrule");
+const space = require("./space");
+const comment_singleline = require("./comment_singleline");
+const atrule = require("./atrule");
 
 module.exports = class block {
   constructor(ast, parentRule) {
@@ -24,7 +24,7 @@ module.exports = class block {
   }
 
   toString() {
-    const { rule } = require("./rule");
+    const rule = require("./rule");
     let previtem;
     return this.items
       .filter(item => !(item instanceof space))

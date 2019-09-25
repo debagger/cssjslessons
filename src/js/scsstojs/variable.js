@@ -1,4 +1,4 @@
-exports.variable = class variable {
+module.exports = class variable {
   constructor(ast) {
     this.ast = ast;
   }
