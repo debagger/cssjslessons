@@ -1,6 +1,6 @@
 const { nodeToString } = require("./tools");
-const { selector } = require("./selector");
-const { block } = require("./block");
+const selector = require("./selector");
+const block = require("./block");
 exports.rule = class rule {
   constructor(ast, parentRule) {
     this.ast = ast;
@@ -25,7 +25,7 @@ exports.rule = class rule {
   toString() {
     const [first, ...other] = this.selector.selectors;
     const otherRules = other
-      .map(selector => `css.rule("${selector}").extend("${first}");`)
+      .map(selector => `css.rule("${selector}").extend(css.rule("${first}"));`)
       .join("\n");
     return `
 css.rule("${first}")${this.block.toString()}

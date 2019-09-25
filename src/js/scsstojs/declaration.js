@@ -1,7 +1,7 @@
-const { property } = require("./property");
+const property = require("./property");
 const { value } = require("./value");
 
-exports.declaration = class declaration {
+module.exports = class declaration {
   constructor(ast) {
     const types = {
       property: ast => (this.property = new property(ast)),

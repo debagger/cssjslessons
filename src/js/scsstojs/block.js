@@ -1,9 +1,9 @@
-const { declaration } = require("./declaration");
+const declaration = require("./declaration");
 const { space } = require("./space");
 const { comment_singleline } = require("./comment_singleline");
 const { atrule } = require("./atrule");
 
-exports.block = class block {
+module.exports = class block {
   constructor(ast, parentRule) {
     const { rule } = require("./rule");
     this.parentRule = parentRule;
@@ -50,7 +50,7 @@ exports.block = class block {
         if (item instanceof rule) {
           const [firstSelector, ...otherSelectors] = item.selector.selectors;
 
-          return `\n.nested(${firstSelector})${item.block.toString()}`;
+          return `\n.nest("${firstSelector}")${item.block.toString()}`;
         }
       })
       .join("");

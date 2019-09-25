@@ -1,5 +1,5 @@
 const { nodeToString } = require("./tools");
-exports.selector = class selector {
+module.exports = class selector {
   constructor(ast) {
     this.selectors = nodeToString(ast)
       .split(",")
