@@ -7,6 +7,15 @@ const styleSheet = require("../src/js/ss.js");
 let css = new styleSheet();
 
 describe("Test rules from _reboot.scss", function() {
+  describe("nodeToString", function() {
+    it("test", function() {
+      const testString = `button,[type="button"],[type="reset"],[type="submit"]`;
+      const ast = parse(testString);
+      const resultString = nodeToString(ast);
+      assert.equal(testString, resultString);
+    });
+  });
+
   const sourceSCSS = fs.readFileSync(
     "./src/bootstrap/scss/_reboot.scss",
     "utf-8"

@@ -2,6 +2,7 @@ function nodeToString(ast) {
   if (typeof ast.value == "string") {
     if (ast.type == "space" && ast.value == "\n") return "";
     if (ast.type == "comment_singleline") return "";
+    if (ast.type == "string_double") return `"${ast.value}"`;
 
     return ast.value;
   }
