@@ -29,9 +29,11 @@
     "gulp-plumber": "^1.2.1",
     "gulp-rollup": "^2.16.2",
     "gulp-sourcemaps": "^2.6.5",
+    "node-sass": "^4.12.0",
     "rollup": "^1.21.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "sass": "^1.22.12",
     "scss-parser": "^1.0.3",
     "scss-symbols-parser": "^1.1.3"
   },

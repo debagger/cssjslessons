@@ -27,7 +27,10 @@ module.exports = class styleSheet {
   }
 
   css() {
-    return this.rules.join("\n\n");
+    return this.rules
+      .filter(item => item.properties.size != 0)
+      .map(item => item.toString())
+      .join("\n\n");
   }
 
   attach() {

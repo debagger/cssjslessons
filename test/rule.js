@@ -26,7 +26,7 @@ describe("Test rules from _reboot.scss", function() {
       it("constructor", function() {
         assert.doesNotThrow(() => {
           new rule(item);
-        });
+        }, stringify(item));
       });
 
       it("toString()", function() {
@@ -41,6 +41,39 @@ describe("Test rules from _reboot.scss", function() {
         assert.doesNotThrow(() => {
           eval(js);
         }, js);
+      });
+
+      it("Generate css", function() {
+        const newrule = new rule(item);
+        const js = newrule.toString();
+        eval(js);
+        assert.doesNotThrow(() => {
+          css.css();
+        });
+      });
+
+      it("Generated css are equal to to generated from source", function() {
+        const newrule = new rule(item);
+        const js = newrule.toString();
+        eval(js);
+        let generatedCss = css.css();
+        const scssRule = stringify(item);
+        const { renderSync } = require("node-sass");
+        const removeSpaces = function(css) {
+          const ast = parse(css);
+          const clear = function(ast) {
+            if (Array.isArray(ast.value)) {
+              ast.value = ast.value.filter(item => item.type != "space");
+              ast.value.forEach(clear);
+            }
+          };
+          clear(ast);
+          return stringify(ast);
+        };
+        let cssFromSource = renderSync({ data: scssRule }).css.toString();
+        generatedCss = removeSpaces(generatedCss);
+        cssFromSource = removeSpaces(cssFromSource);
+        assert.equal(generatedCss, cssFromSource);
       });
     });
   });

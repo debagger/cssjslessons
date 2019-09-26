@@ -5,7 +5,7 @@ const atrule = require("./atrule");
 
 module.exports = class block {
   constructor(ast, parentRule) {
-    const { rule } = require("./rule");
+    const rule = require("./rule");
     this.parentRule = parentRule;
     const types = {
       rule: ast => new rule(ast, this.parentRule),
