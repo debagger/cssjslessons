@@ -3,6 +3,6 @@ module.exports = class selector {
   constructor(ast) {
     this.selectors = nodeToString(ast)
       .split(",")
-      .map(s => s.trim());
+      .map(s => s.trim().replace(new RegExp('"', "g"), '\\"'));
   }
 };
