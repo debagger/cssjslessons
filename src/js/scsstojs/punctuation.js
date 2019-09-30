@@ -1,4 +1,4 @@
-module.exports = class number {
+module.exports = class punctuation {
   constructor(ast) {
     this.value = ast.value;
   }

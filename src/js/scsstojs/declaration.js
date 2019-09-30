@@ -4,9 +4,13 @@ const value = require("./value");
 module.exports = class declaration {
   constructor(ast) {
     const types = {
-      property: ast => (this.property = new property(ast)),
+      property: ast => {
+        this.property = new property(ast);
+      },
       punctuation: ast => "",
-      value: ast => (this.value = new value(ast))
+      value: ast => {
+        this.value = new value(ast);
+      }
     };
     ast.value.forEach(i =>
       Object.keys(types).includes(i.type)
@@ -18,6 +22,8 @@ module.exports = class declaration {
   }
   toString() {
     if (this.rule) return this.rule.toString();
-    return `{"${this.property.toString()}": "${this.value.toString()}"}`;
+    if (this.property.variable)
+      return `const ${this.property.toString()} = ${this.value.toString()}\n`;
+    return `${this.property.toString()}: ${this.value.toString()}`;
   }
 };

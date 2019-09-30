@@ -45,9 +45,15 @@ describe("Test rules from _reboot.scss", function() {
         });
       });
       it("Generate valid code", function() {
+        console.log(stringify(item));
+
         const newrule = new rule(item);
         const js = newrule.toString();
+        console.log(js);
+
         assert.doesNotThrow(() => {
+          const black = "";
+          const rgba = function() {};
           eval(js);
         }, js);
       });
@@ -55,18 +61,27 @@ describe("Test rules from _reboot.scss", function() {
       it("Generate css", function() {
         const newrule = new rule(item);
         const js = newrule.toString();
+        const black = "";
+        const rgba = function() {};
         eval(js);
         assert.doesNotThrow(() => {
+          const black = "";
           css.css();
         });
       });
 
       it("Generated css are equal to to generated from source", function() {
+        console.log(stringify(item));
         const newrule = new rule(item);
         const js = newrule.toString();
+        console.log(js);
         eval(js);
         let generatedCss = css.css();
-        const scssRule = stringify(item);
+        const scssRule = `@import "functions";
+@import "variables";
+@import "mixins";
+${stringify(item)}`;
+
         const { renderSync } = require("node-sass");
         const removeSpaces = function(css) {
           const ast = parse(css);
@@ -79,7 +94,14 @@ describe("Test rules from _reboot.scss", function() {
           clear(ast);
           return stringify(ast);
         };
-        let cssFromSource = renderSync({ data: scssRule }).css.toString();
+        let cssFromSource = renderSync({
+          data: scssRule,
+          includePaths: ["src/bootstrap/scss/"]
+        }).css.toString();
+        console.log("cssFromSource");
+        console.log(cssFromSource);
+        console.log("generatedCss");
+        console.log(generatedCss);
         generatedCss = removeSpaces(generatedCss);
         cssFromSource = removeSpaces(cssFromSource);
         assert.equal(generatedCss, cssFromSource);

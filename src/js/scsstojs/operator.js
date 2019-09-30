@@ -1,4 +1,4 @@
-module.exports = class number {
+module.exports = class operator {
   constructor(ast) {
     this.value = ast.value;
   }

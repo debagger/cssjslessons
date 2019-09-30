@@ -1,8 +1,8 @@
-module.exports = class number {
+module.exports = class color_hex {
   constructor(ast) {
     this.value = ast.value;
   }
   toString() {
-    return this.value;
+    return `"#${this.value}"`;
   }
 };

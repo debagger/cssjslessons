@@ -34,12 +34,12 @@ module.exports = class block {
         if (item instanceof declaration) {
           let res = "";
           if (prev instanceof rule) res += "\n.parent";
-          res += `\n.props(${item.toString()})`;
+          res += `\n.props({${item.toString()}})`;
           return res;
         }
 
         if (item instanceof atrule) {
-          return `\n.props(${item.toString()})`;
+          return `\n.props({${item.toString()}})`;
         }
 
         if (item instanceof comment_singleline)
