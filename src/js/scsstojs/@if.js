@@ -5,6 +5,7 @@ const { nodeToString } = require("./tools");
 
 module.exports = class atruleIf {
   constructor(ast) {
+    const atrule = require("./atrule");
     const types = {
       atkeyword: ast => {
         this.atkeyword = ast.value;
@@ -18,7 +19,7 @@ module.exports = class atruleIf {
       },
       block: ast => {
         this.content = ast.value.map(item => {
-          const { rule } = require("./rule");
+          const rule = require("./rule");
           const types = {
             rule: ast => new rule(ast),
             comment_singleline: ast => new comment_singleline(ast),

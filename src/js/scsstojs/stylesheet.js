@@ -5,14 +5,26 @@ const declaration = require("./declaration");
 const comment_multiline = require("./comment_multiline");
 const fs = require("fs");
 const { parse } = require("scss-parser");
-
+const path = require("path");
+//rectal method to read scss
 function readFile(root, filename) {
-  let path = `${root}_${filename}.scss`;
-  if (fs.existsSync(path)) return fs.readFileSync(path, "utf-8");
-  path = `${root}${filename}`;
-  if (fs.existsSync(path)) return fs.readFileSync(path, "utf-8");
-  path = `${root}${filename}.scss`;
-  if (fs.existsSync(path)) return fs.readFileSync(path, "utf-8");
+  let fullpath = path.join(root, filename);
+  const parsed = path.parse(fullpath);
+  parsed.ext = "scss";
+  parsed.base = parsed.name + "." + parsed.ext;
+  fullpath = path.format(parsed);
+  if (fs.existsSync(fullpath)) {
+    console.log(fullpath);
+    return fs.readFileSync(fullpath, "utf-8");
+  }
+
+  parsed.name = "_" + parsed.name;
+  parsed.base = parsed.name + "." + parsed.ext;
+  fullpath = path.format(parsed);
+  if (fs.existsSync(fullpath)) {
+    console.log(fullpath);
+    return fs.readFileSync(fullpath, "utf-8");
+  }
 }
 
 module.exports = class Stylesheet {
