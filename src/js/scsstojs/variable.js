@@ -6,6 +6,6 @@ module.exports = class variable {
     }
   }
   toString() {
-    return this.ast.value.replace(new RegExp("-", "g"), "_");
+    return this.ast.value.replace(/-/g, "_");
   }
 };

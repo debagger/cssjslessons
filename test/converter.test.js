@@ -31,3 +31,25 @@ describe("Converter test on bootstrap-reboot", function() {
     assert.equal(t, t2);
   });
 });
+
+describe("rfs.scss convert", function() {
+  it("Parser roundtrip test", function() {
+    const { parse, stringify } = require("scss-parser");
+    const fs = require("fs");
+    const t = fs.readFileSync(
+      "src\\bootstrap\\scss\\vendor\\_rfs.scss",
+      "utf-8"
+    );
+    const ast = parse(t);
+    const t2 = stringify(ast);
+    assert.equal(t, t2);
+  });
+
+  it("Test costructor", function() {
+    const rootDirectory = "src/bootstrap/scss/vendor";
+    const filename = "rfs";
+
+    const conv = converter(filename, rootDirectory);
+    assert(conv);
+  });
+});
