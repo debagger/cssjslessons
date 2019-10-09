@@ -86,6 +86,6 @@ module.exports = class atruleIf {
     const expr = this.expressionToString(this.expression);
 
     const blockstr = this.block.toString();
-    return `if(${expr}){css${blockstr}}`;
+    return `if (${expr}) {\n${blockstr}}\n`;
   }
 };

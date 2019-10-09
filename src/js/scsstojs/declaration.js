@@ -14,6 +14,9 @@ module.exports = class declaration {
       item => item.type == "identifier"
     );
     this.value = ast.value.find(item => item.type == "value");
+    if (!((this.variable || this.identifier) && this.value)) {
+      throw "Incorrect declaration";
+    }
   }
   ast() {
     if (this.variable) {
