@@ -5,33 +5,14 @@ const block = require("./block");
 const { nodeToString } = require("./tools");
 
 module.exports = class atruleIf {
-  constructor(ast) {
-    const atrule = require("./atrule");
+  constructor(ast, global) {
     const types = {
       atkeyword: function(ast) {
         this.atkeyword = ast.value;
       }.bind(this),
       block: function(ast) {
         const block = require("./block");
-
         this.block = new block(ast);
-        this.content = ast.value.map(item => {
-          const rule = require("./rule");
-          const declaration = require("./declaration");
-          const types = {
-            rule: ast => new rule(ast),
-            comment_singleline: ast => new comment_singleline(ast),
-            space: ast => new space(ast),
-            atrule: ast => atrule(ast),
-            declaration: ast => new declaration(ast)
-          };
-
-          return types[item.type]
-            ? types[item.type](item)
-            : console.error(
-                `Unexpected node type '${item.type}' at line ${item.start.line}`
-              );
-        });
       }.bind(this)
     };
     this.expression = [];
@@ -56,7 +37,9 @@ module.exports = class atruleIf {
       const item = expressionArray[index];
       const next = expressionArray[index + 1];
       if (item.type == "operator") {
-        if (["+", "*", "/", "%"].includes(item.value)) {
+        if (item.value == "==") {
+          result += ` ${item.value} `;
+        } else if (["+", "*", "/", "%"].includes(item.value)) {
           result += ` ${item.value} `;
         } else if ([">", "<", "=", "!"].includes(item.value)) {
           if (next && next.type == "operator" && next.value == "=") {

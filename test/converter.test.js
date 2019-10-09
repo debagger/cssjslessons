@@ -19,7 +19,7 @@ describe("Converter test on bootstrap-reboot", function() {
     assert(conv);
   });
 
-  it("Parse src\bootstrapscssmixins_box-shadow.scss", function() {
+  it("Parse src/ootstrap/scss/mixins/_box-shadow.scss", function() {
     const fs = require("fs");
     const t = fs.readFileSync(
       "src\\bootstrap\\scss\\mixins\\_box-shadow.scss",
@@ -45,11 +45,34 @@ describe("rfs.scss convert", function() {
     assert.equal(t, t2);
   });
 
-  it("Test costructor", function() {
+  it("Test costructor", function(done) {
     const rootDirectory = "src/bootstrap/scss/vendor";
     const filename = "rfs";
 
     const conv = converter(filename, rootDirectory);
     assert(conv);
+    const result = conv.toString();
+    console.log(result);
+    const { LintStream } = require("jslint");
+    const l = new LintStream({
+      edition: "latest",
+      length: 100,
+      es6: true
+    });
+    l.write({ file: "test.js", body: result });
+    l.on("data", function(chunk, encoding, callback) {
+      // chunk is an object
+      // chunk.file is whatever you supplied to write (see above)
+      //assert.deepEqual(chunk.file, fileName);
+      // chunk.linted is an object holding the result from running JSLint
+      // chunk.linted.ok is the boolean return code from JSLINT()
+      if (chunk.linted.errors.length > 0) console.table(chunk.linted.errors);
+      assert.equal(chunk.linted.errors.length, 0, "Has errors");
+
+      // is the array of errors, etc.
+      // see JSLINT for the complete contents of the object
+
+      done();
+    });
   });
 });

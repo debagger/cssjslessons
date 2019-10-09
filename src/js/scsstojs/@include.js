@@ -23,21 +23,21 @@ module.exports = class include {
       variable: ast => new variable(ast)
     };
 
-    ast.value.forEach(i =>
-      Object.keys(types).includes(i.type)
-        ? types[i.type](i)
+    ast.value.forEach(item =>
+      types[item.type]
+        ? types[item.type](item)
         : console.error(
-            `Unexpected node type '${i.type}' at line ${i.start.line}`
+            `Unexpected node type in @include '${item.type}' at line ${item.start.line}`
           )
     );
   }
 
   toString() {
     if (this.arguments)
-      return `${this.identifier.toString()}(${this.arguments.toString()})`;
+      return `${this.identifier.toString()}(${this.arguments.toString()});`;
     if (this.variable)
-      return `${this.identifier.toString()}(${this.variable.toString()})`;
+      return `${this.identifier.toString()}(${this.variable.toString()});`;
 
-    return `${this.identifier.toString()}()`;
+    return `${this.identifier.toString()}();`;
   }
 };

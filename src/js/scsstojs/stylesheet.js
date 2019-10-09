@@ -1,6 +1,5 @@
 const comment_singleline = require("./comment_singleline");
 const space = require("./space");
-const atrule = require("./atrule");
 const declaration = require("./declaration");
 const comment_multiline = require("./comment_multiline");
 const fs = require("fs");
@@ -33,6 +32,7 @@ module.exports = class Stylesheet {
     const ast = parse(f);
     this.filename = filename;
     const rule = require("./rule");
+    const atrule = require("./atrule");
     const types = {
       rule: ast => new rule(ast),
       comment_singleline: ast => new comment_singleline(ast),
@@ -63,8 +63,8 @@ module.exports = class Stylesheet {
           if (!isLast) return item.toString();
           return item.toString() + "\n\n";
         }
-
-        return item.toString();
+        if (item) return item.toString();
+        return "//Error here";
       })
       .join("");
     return `

@@ -4,15 +4,15 @@ const comment_singleline = require("./comment_singleline");
 const atrule = require("./atrule");
 
 module.exports = class block {
-  constructor(ast, parentRule) {
+  constructor(ast, context) {
     const rule = require("./rule");
-    this.parentRule = parentRule;
+    this.parentRule = context;
     const types = {
       rule: ast => new rule(ast, this.parentRule),
       declaration: ast => new declaration(ast),
       space: ast => new space(ast),
       comment_singleline: ast => new comment_singleline(ast),
-      atrule: ast => new atrule(ast)
+      atrule: ast => atrule(ast)
     };
     this.items = ast.value.map(i =>
       Object.keys(types).includes(i.type)
@@ -38,10 +38,6 @@ module.exports = class block {
           return res;
         }
 
-        if (item instanceof atrule) {
-          return `\n.props({${item.toString()}})`;
-        }
-
         if (item instanceof comment_singleline)
           return prev instanceof comment_singleline
             ? "\n" + item.toString()
@@ -52,6 +48,7 @@ module.exports = class block {
 
           return `\n.nest("${firstSelector}")${item.block.toString()}`;
         }
+        if (item) return item.toString();
       })
       .join("");
   }
