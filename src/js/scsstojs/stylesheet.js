@@ -27,8 +27,8 @@ function readFile(root, filename) {
 }
 
 module.exports = class Stylesheet {
-  constructor(filename, global) {
-    const f = readFile(global.rootDirectory, filename);
+  constructor(filename, context) {
+    const f = readFile(context.rootDirectory, filename);
     const ast = parse(f);
     this.filename = filename;
     const rule = require("./rule");
@@ -37,8 +37,8 @@ module.exports = class Stylesheet {
       rule: ast => new rule(ast),
       comment_singleline: ast => new comment_singleline(ast),
       comment_multiline: ast => new comment_multiline(ast),
-      space: ast => new space(ast),
-      atrule: ast => atrule(ast, global),
+      space: ast => new space(ast, context),
+      atrule: ast => atrule(ast, context),
       declaration: ast => new declaration(ast)
     };
 
