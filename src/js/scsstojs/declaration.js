@@ -1,29 +1,37 @@
 const property = require("./property");
 const value = require("./value");
+const { nodeToString } = require("./tools");
+const assert = require("assert");
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 
 module.exports = class declaration {
   constructor(ast) {
-    const types = {
-      property: ast => {
-        this.property = new property(ast);
-      },
-      punctuation: ast => "",
-      value: ast => {
-        this.value = new value(ast);
-      }
-    };
-    ast.value.forEach(i =>
-      Object.keys(types).includes(i.type)
-        ? types[i.type](i)
-        : console.error(
-            `Unexpected node type '${i.type}' at line ${i.start.line}`
-          )
+    this.property = ast.value.find(item => item.type == "property");
+    this.variable = this.property.value.find(item => item.type == "variable");
+    this.identifier = this.property.value.find(
+      item => item.type == "identifier"
     );
+    this.value = ast.value.find(item => item.type == "value");
   }
+  ast() {
+    if (this.variable) {
+      return template("const VAR_NAME = EXPRESSION;")({
+        VAR_NAME: t.identifier(this.variable.value.replace(/-/g, "_")),
+        EXPRESSION: t.stringLiteral(nodeToString(this.value))
+      });
+    }
+    if (this.identifier) {
+      return template("rule.props({IDENTIFIER: EXPRESSION});")({
+        IDENTIFIER: t.identifier(this.identifier.value),
+        EXPRESSION: t.stringLiteral(nodeToString(this.value))
+      });
+    }
+  }
+
   toString() {
-    if (this.rule) return this.rule.toString();
-    if (this.property.variable)
-      return `const ${this.property.toString()} = ${this.value.toString()}\n`;
-    return `${this.property.toString()}: ${this.value.toString()}`;
+    const result = generate(this.ast());
+    return result.code + "\n";
   }
 };

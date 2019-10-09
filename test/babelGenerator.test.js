@@ -4,13 +4,12 @@ const generate = require("@babel/generator").default;
 const template = require("@babel/template").default;
 const t = require("@babel/types");
 
-describe.only("Babel codegenerator usecase", function() {
+describe("Babel codegenerator usecase", function() {
   it("roundtrip", function() {
     const code = `function test(param1, param2 = false) {
   console.log(param1);
-} 
+} //Its comment
 
-//Its comment
 
 const p = "Hello, world!";
 test(p);`;
@@ -30,9 +29,6 @@ test(p);`;
 
     del(ast);
     ast = ast.program;
-    const json = JSON.stringify(ast, null, " ");
-    //console.log(json);
-    ast = JSON.parse(json);
     const output = generate(ast);
     console.log(output.code);
     assert.equal(output.code, code);
@@ -46,14 +42,27 @@ test(p);`;
       ])
     );
 
-    const ast = template(`const %%var%% = %%val%%;`)({
-      var: t.identifier("var1"),
-      val: t.numericLiteral(123)
-    });
-
-    console.log(generate(ast));
-
     const output = generate(program);
-    assert.equal(output.code, "//Its comment");
+    assert.equal(
+      output.code,
+      `//Its comment
+const var1 = 123;`
+    );
+  });
+
+  it("render if condition", function() {
+    const cond = template.ast("f(a) && b || !(c && b)");
+    const body = template.ast("var1 = false;");
+    const ast = template("if(%%cond%%){%%body%%}")({
+      cond: cond.expression,
+      body: body
+    });
+    const output = generate(ast);
+    assert.equal(
+      output.code,
+      `if (f(a) && b || !(c && b)) {
+  var1 = false;
+}`
+    );
   });
 });
