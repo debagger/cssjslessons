@@ -5,6 +5,8 @@ const comment_multiline = require("./comment_multiline");
 const fs = require("fs");
 const { parse } = require("scss-parser");
 const path = require("path");
+const Context = require("./context");
+
 //rectal method to read scss
 function readFile(root, filename) {
   let fullpath = path.join(root, filename);
@@ -31,10 +33,11 @@ module.exports = class Stylesheet {
     const f = readFile(context.rootDirectory, filename);
     const ast = parse(f);
     this.filename = filename;
+    this.context = new Context(context, this);
     const rule = require("./rule");
     const atrule = require("./atrule");
     const types = {
-      rule: ast => new rule(ast),
+      rule: ast => new rule(ast, context),
       comment_singleline: ast => new comment_singleline(ast),
       comment_multiline: ast => new comment_multiline(ast),
       space: ast => new space(ast, context),
