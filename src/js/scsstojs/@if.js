@@ -5,7 +5,7 @@ const block = require("./block");
 const { nodeToString } = require("./tools");
 
 module.exports = class atruleIf {
-  constructor(ast, global) {
+  constructor(ast, context) {
     const types = {
       atkeyword: function(ast) {
         this.atkeyword = ast.value;

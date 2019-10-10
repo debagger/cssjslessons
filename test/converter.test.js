@@ -32,7 +32,7 @@ describe("Converter test on bootstrap-reboot", function() {
   });
 });
 
-describe.only("rfs.scss convert", function() {
+describe("rfs.scss convert", function() {
   it("Parser roundtrip test", function() {
     const { parse, stringify } = require("scss-parser");
     const fs = require("fs");
@@ -45,7 +45,7 @@ describe.only("rfs.scss convert", function() {
     assert.equal(t, t2);
   });
 
-  it.only("Test costructor", function(done) {
+  it("Test costructor", function(done) {
     const rootDirectory = "src/bootstrap/scss/vendor";
     const filename = "rfs";
     const conv = converter(filename, rootDirectory);

@@ -2,13 +2,14 @@ const declaration = require("./declaration");
 const space = require("./space");
 const comment_singleline = require("./comment_singleline");
 const atrule = require("./atrule");
+const Context = require("./context");
 
 module.exports = class block {
-  constructor(ast, context) {
+  constructor(ast, parentContext) {
     const rule = require("./rule");
-    this.parentRule = context;
+    this.context = new Context(parentContext);
     const types = {
-      rule: ast => new rule(ast, this.parentRule),
+      rule: ast => new rule(ast, this.context),
       declaration: ast => new declaration(ast),
       space: ast => new space(ast),
       comment_singleline: ast => new comment_singleline(ast),
@@ -34,7 +35,7 @@ module.exports = class block {
         if (item instanceof declaration) {
           let res = "";
           if (prev instanceof rule) res += "\n.parent";
-          res += `\n.props({${item.toString()}})`;
+          res += `\n{${item.toString()}}`;
           return res;
         }
 
