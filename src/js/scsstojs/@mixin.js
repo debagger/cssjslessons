@@ -14,7 +14,7 @@ module.exports = class mixin {
     const blockAst = ast.value.find(item => item.type == "block");
     this.block = new Block(blockAst, new Context(context, this));
 
-    context.mixins[this.identifier] = this;
+    context.addMixin(this.identifier, this);
   }
   toString() {
     return `function ${this.identifier}(${
