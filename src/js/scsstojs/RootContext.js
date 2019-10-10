@@ -4,6 +4,7 @@ module.exports = class RootContext extends Context {
   constructor(rootPath) {
     super();
     this.rootPath = rootPath;
+    this.stylesheets = {};
   }
 
   readFile(filename) {

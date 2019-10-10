@@ -12,7 +12,7 @@ module.exports = class Stylesheet {
     const f = context.readFile(filename);
     const ast = parse(f);
     this.filename = filename;
-    this.context = new Context(context, this);
+    this.context = context;
     const rule = require("./rule");
     const atrule = require("./atrule");
     const types = {
@@ -21,7 +21,7 @@ module.exports = class Stylesheet {
       comment_multiline: ast => new comment_multiline(ast),
       space: ast => new space(ast, context),
       atrule: ast => atrule(ast, context),
-      declaration: ast => new declaration(ast)
+      declaration: ast => new declaration(ast, context)
     };
 
     this.items = ast.value.map(i =>

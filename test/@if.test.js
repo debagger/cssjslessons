@@ -2,7 +2,7 @@ const assert = require("assert");
 const { parse } = require("scss-parser");
 const _if = require("../src/js/scsstojs/@if");
 
-describe.only("Simple @if tests", function() {
+describe("Simple @if tests", function() {
   it("$var1 or $var2", function() {
     const ast = parse("@if $var1 or $var2 {font-size: red;}").value[0];
     const newif = new _if(ast);

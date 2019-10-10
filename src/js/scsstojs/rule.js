@@ -25,7 +25,6 @@ module.exports = class rule {
     );
   }
   toString() {
-    const 
     const [first, ...other] = this.selector.selectors;
     const otherRules = other
       .map(selector => `css.rule("${selector}").extend(css.rule("${first}"));`)

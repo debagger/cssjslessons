@@ -1,11 +1,7 @@
 module.exports = class _import {
-  constructor(ast, global) {
+  constructor(ast, context) {
     const styleSheet = require("./stylesheet");
-    const names = ast.value
-      .filter(item => item.type == "string_double")
-      .map(item => item.value);
-    names.forEach(item => {
-      global.stylesheets[item] = new styleSheet(item, global);
-    });
+    this.name = ast.value.find(item => item.type == "string_double").value;
+    context.stylesheets[this.name] = new styleSheet(this.name, context);
   }
 };

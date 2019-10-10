@@ -10,7 +10,8 @@ module.exports = class ContextBase {
       if (vars[name]) return vars[this];
     };
 
-    this.getVars = () => vars.map(item => Object.assign({}, item));
+    this.getVars = () =>
+      Object.values(vars).map(item => Object.assign({}, item));
 
     this.addMixin = (mixinName, mixinObj) => {
       mixins[mixinName] = { name: mixinName, obj: mixinObj };
@@ -20,6 +21,7 @@ module.exports = class ContextBase {
       if (mixins[name]) return mixins[name];
     };
 
-    this.getMixins = () => mixins.map(item => Object.assign({}, item));
+    this.getMixins = () =>
+      Object.values(mixins).map(item => Object.assign({}, item));
   }
 };

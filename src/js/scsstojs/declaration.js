@@ -7,7 +7,7 @@ const template = require("@babel/template").default;
 const t = require("@babel/types");
 
 module.exports = class declaration {
-  constructor(ast) {
+  constructor(ast, context) {
     this.property = ast.value.find(item => item.type == "property");
     this.variable = this.property.value.find(item => item.type == "variable");
     this.identifier = this.property.value.find(
@@ -17,6 +17,8 @@ module.exports = class declaration {
     if (!((this.variable || this.identifier) && this.value)) {
       throw "Incorrect declaration";
     }
+
+    if (this.variable) context.addVar(this.variable.value, this);
   }
   ast() {
     if (this.variable) {
