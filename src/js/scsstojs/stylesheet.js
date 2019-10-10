@@ -7,30 +7,9 @@ const { parse } = require("scss-parser");
 const path = require("path");
 const Context = require("./context");
 
-//rectal method to read scss
-function readFile(root, filename) {
-  let fullpath = path.join(root, filename);
-  const parsed = path.parse(fullpath);
-  parsed.ext = "scss";
-  parsed.base = parsed.name + "." + parsed.ext;
-  fullpath = path.format(parsed);
-  if (fs.existsSync(fullpath)) {
-    console.log(fullpath);
-    return fs.readFileSync(fullpath, "utf-8");
-  }
-
-  parsed.name = "_" + parsed.name;
-  parsed.base = parsed.name + "." + parsed.ext;
-  fullpath = path.format(parsed);
-  if (fs.existsSync(fullpath)) {
-    console.log(fullpath);
-    return fs.readFileSync(fullpath, "utf-8");
-  }
-}
-
 module.exports = class Stylesheet {
   constructor(filename, context) {
-    const f = readFile(context.rootDirectory, filename);
+    const f = context.readFile(filename);
     const ast = parse(f);
     this.filename = filename;
     this.context = new Context(context, this);

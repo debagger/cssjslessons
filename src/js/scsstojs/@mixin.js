@@ -1,3 +1,5 @@
+const Context = require("./context");
+
 module.exports = class mixin {
   constructor(ast, context) {
     this.identifier = ast.value
@@ -10,7 +12,7 @@ module.exports = class mixin {
 
     const Block = require("./block");
     const blockAst = ast.value.find(item => item.type == "block");
-    this.block = new Block(blockAst);
+    this.block = new Block(blockAst, new Context(context, this));
 
     context.mixins[this.identifier] = this;
   }

@@ -5,15 +5,17 @@ const atrule = require("./atrule");
 const Context = require("./context");
 
 module.exports = class block {
-  constructor(ast, parentContext) {
+  constructor(ast, context) {
     const rule = require("./rule");
-    this.context = new Context(parentContext);
+
+    this.context = context;
+
     const types = {
       rule: ast => new rule(ast, this.context),
       declaration: ast => new declaration(ast),
       space: ast => new space(ast),
       comment_singleline: ast => new comment_singleline(ast),
-      atrule: ast => atrule(ast)
+      atrule: ast => atrule(ast, this.context)
     };
     this.items = ast.value.map(i =>
       Object.keys(types).includes(i.type)
@@ -35,7 +37,7 @@ module.exports = class block {
         if (item instanceof declaration) {
           let res = "";
           if (prev instanceof rule) res += "\n.parent";
-          res += `\n{${item.toString()}}`;
+          res += `\n${item.toString()}`;
           return res;
         }
 

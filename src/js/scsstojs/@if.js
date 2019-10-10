@@ -1,20 +1,19 @@
-const space = require("./space");
-const _arguments = require("./arguments");
 const variable = require("./variable");
-const block = require("./block");
-const { nodeToString } = require("./tools");
 
 module.exports = class atruleIf {
   constructor(ast, context) {
+    this.context = context;
+
     const types = {
       atkeyword: function(ast) {
         this.atkeyword = ast.value;
       }.bind(this),
       block: function(ast) {
         const block = require("./block");
-        this.block = new block(ast);
+        this.block = new block(ast, context);
       }.bind(this)
     };
+
     this.expression = [];
 
     for (const item of ast.value) {

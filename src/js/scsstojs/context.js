@@ -1,21 +1,27 @@
-module.exports = class Context {
-  constructor(parent) {
-    this.parent = parent;
-    this.vars = {};
-    this.mixins = {};
-  }
-  getChild() {
-    return new Context(this);
-  }
-  findVar(name) {
-    if (this.vars[name]) return this.vars[this];
-    if (this.parent) return this.parent.findVar(name);
-    return undefined;
-  }
+const ContextBase = require("./ContextBase");
 
-  findMixin(name) {
-    if (this.mixins[name]) return this.mixins[name];
-    if (this.parent) return this.findMixin(name);
-    return undefined;
+module.exports = class Context extends ContextBase {
+  constructor(parentContext, contextObj) {
+    super();
+    this.parentContext = parentContext;
+    this.contextObj = contextObj;
+
+    this.findVar = name => {
+      const result = super.findVar(name);
+      if (result) {
+        return result;
+      } else {
+        return this.parentContext.findVar(name);
+      }
+    };
+
+    this.findMixin = name => {
+      const result = super.findMixin(name);
+      if (result) {
+        return result;
+      } else {
+        return this.parentContext.findMixin(name);
+      }
+    };
   }
 };
