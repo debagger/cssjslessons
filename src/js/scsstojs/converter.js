@@ -1,12 +1,7 @@
 const Stylesheet = require("./stylesheet");
-
+const Context = require("./ContextBase");
 module.exports = function(filename, rootDirectory) {
-  const global = {
-    rootDirectory: rootDirectory,
-    stylesheets: {},
-    mixins: {},
-    functions: {}
-  };
+  const context = new Context(undefined, undefined);
   const rootstylesheet = new Stylesheet(filename, global);
   return rootstylesheet;
 };

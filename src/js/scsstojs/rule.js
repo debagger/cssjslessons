@@ -1,18 +1,20 @@
 const { nodeToString } = require("./tools");
 const selector = require("./selector");
 const block = require("./block");
+const Context = require("./ContextBase");
 module.exports = class rule {
-  constructor(ast, parentRule) {
+  constructor(ast, context) {
     this.ast = ast;
-    this.parentRule = parentRule;
+
+    this.context = context;
 
     const types = {
       selector: ast => {
         this.selector = new selector(ast);
       },
-      block: ast => {
-        this.block = new block(ast, this);
-      }
+      block: function(ast) {
+        this.block = new block(ast, new Context(context, this));
+      }.bind(this)
     };
     ast.value.forEach(i =>
       Object.keys(types).includes(i.type)
@@ -23,6 +25,7 @@ module.exports = class rule {
     );
   }
   toString() {
+    const 
     const [first, ...other] = this.selector.selectors;
     const otherRules = other
       .map(selector => `css.rule("${selector}").extend(css.rule("${first}"));`)
