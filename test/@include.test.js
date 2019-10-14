@@ -1,12 +1,25 @@
 const assert = require("assert");
 const { parse } = require("scss-parser");
 const atrule = require("../src/js/scsstojs/atrule");
+const RootContextMock = require("./utils/RootContextMock");
 describe("@include tests", function() {
   it("@include rfs($fs, $important)", function() {
-    const ast = parse("@include rfs($fs, $important);").value[0];
-    const incl = atrule(ast);
-    console.log(incl);
+    const files = {
+      root: `@import "mixins";
+p {
+  font-size: 12px;
+  @include redandwhite;
+}`,
+      mixins: `@mixin redandwhite {
+        color: red;
+        background: white;
+      };`
+    };
+    const rootContext = new RootContextMock(files);
+    const rootStylesheet = new Stylesheet("root", rootContext);
 
-    assert.equal("rfs(fs, important);", incl.toString());
+    const result = rootStylesheet.toString();
+    console.log(result);
+    assert.equal(result, "function");
   });
 });

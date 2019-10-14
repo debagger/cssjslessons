@@ -17,13 +17,19 @@ module.exports = class block {
       comment_singleline: ast => new comment_singleline(ast),
       atrule: ast => atrule(ast, this.context)
     };
-    this.items = ast.value.map(i =>
-      Object.keys(types).includes(i.type)
-        ? types[i.type](i)
-        : console.error(
-            `Unexpected node type '${i.type}' at line ${i.start.line}`
-          )
-    );
+    this.items = ast.value
+      .filter(item => item.type != "space")
+      .map(i =>
+        Object.keys(types).includes(i.type)
+          ? types[i.type](i)
+          : console.error(
+              `Unexpected node type '${i.type}' at line ${i.start.line}`
+            )
+      );
+  }
+
+  getAst() {
+    return this.items.map(item => item.getAst());
   }
 
   toString() {

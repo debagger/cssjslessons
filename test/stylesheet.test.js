@@ -2,10 +2,11 @@ const assert = require("assert");
 const Stylesheet = require("../src/js/scsstojs/stylesheet");
 const RootContextMock = require("./utils/RootContextMock");
 
-describe.only("Stylesheet import tests", function() {
+describe("Stylesheet import tests", function() {
   it("Import file with vars", function() {
     const files = {
-      root: `@import "vars"`,
+      root: `@import "vars";
+             $var1: 321;`,
       vars: `$var1: 123;
           $var2: 100px;`
     };
@@ -16,6 +17,27 @@ describe.only("Stylesheet import tests", function() {
       rootContext.getVars().length,
       2,
       "Vars in root context not equals to expected"
+    );
+    assert.equal(
+      rootStylesheet.toString(),
+      `module.exports = function (css, $, mixin) {
+  require("./vars")(css, $, mixin);
+
+  $.var1 = "321";
+};`,
+      "Wrong output from 'root' stylesheet object"
+    );
+
+    const varsSS = rootContext.stylesheets.vars;
+
+    assert(varsSS, "Not found 'vars' stylesheet object in rootContext");
+
+    assert.equal(
+      varsSS.toString(),
+      `module.exports = function (css, $, mixin) {
+  $.var1 = "123";
+  $.var2 = "100px";
+};`
     );
   });
 

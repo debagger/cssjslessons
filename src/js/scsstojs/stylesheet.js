@@ -3,8 +3,9 @@ const space = require("./space");
 const declaration = require("./declaration");
 const comment_multiline = require("./comment_multiline");
 const { parse } = require("scss-parser");
-const path = require("path");
-const Context = require("./context");
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 
 module.exports = class Stylesheet {
   constructor(filename, context) {
@@ -18,40 +19,30 @@ module.exports = class Stylesheet {
       rule: ast => new rule(ast, context),
       comment_singleline: ast => new comment_singleline(ast),
       comment_multiline: ast => new comment_multiline(ast),
-      space: ast => new space(ast, context),
       atrule: ast => atrule(ast, context),
       declaration: ast => new declaration(ast, context)
     };
 
-    this.items = ast.value.map(i =>
-      Object.keys(types).includes(i.type)
-        ? types[i.type](i)
-        : console.error(
-            `Unexpected node type '${i.type}' at line ${i.start.line}, '${filename}'`
-          )
-    );
+    this.items = ast.value
+      .filter(item => item.type != "space")
+      .map(i =>
+        Object.keys(types).includes(i.type)
+          ? types[i.type](i)
+          : console.error(
+              `Unexpected node type '${i.type}' at line ${i.start.line}, '${filename}'`
+            )
+      );
   }
-  toString() {
-    const rule = require("./rule");
+  getAst() {
+    const result = template(
+      "module.exports = function (css, $, mixin) { %%body%% }"
+    )({
+      body: this.items.map(item => item.getAst())
+    });
+    return result;
+  }
 
-    const items = this.items
-      .map((item, index, arr) => {
-        const isLast = arr.length == index - 1;
-        if (item instanceof comment_singleline) {
-          return item.toString() + "\n";
-        }
-        if (item instanceof rule) {
-          if (!isLast) return item.toString();
-          return item.toString() + "\n\n";
-        }
-        if (item) return item.toString();
-        return "//Error here";
-      })
-      .join("");
-    return `
-const styleSheet = require("../src/js/ss.js");
-module.exports = function(css, $, mixin) {
-${items}
-}`;
+  toString() {
+    return generate(this.getAst()).code;
   }
 };

@@ -31,6 +31,7 @@ module.exports = class include {
           )
     );
   }
+  getAst() {}
 
   toString() {
     if (this.arguments)

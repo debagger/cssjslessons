@@ -1,4 +1,7 @@
 const Context = require("./context");
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 
 module.exports = class mixin {
   constructor(ast, context) {
@@ -16,11 +19,21 @@ module.exports = class mixin {
 
     context.addMixin(this.identifier, this);
   }
+
+  getAst() {
+    let paramsAst = [];
+    if (this.arguments) paramsAst = this.arguments.getAst();
+    const bodyAst = this.block.getAst();
+
+    return template("mixin.%%identifier%% = (%%params%%) => {%%body%%}")({
+      identifier: t.identifier(this.identifier),
+      params: paramsAst,
+      body: bodyAst
+    });
+  }
+
   toString() {
-    return `function ${this.identifier}(${
-      this.arguments ? this.arguments.toString() : ""
-    }){
-${this.block.toString()}
-}`;
+    const ast = this.getAst();
+    return generate(ast).code;
   }
 };

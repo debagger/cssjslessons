@@ -20,23 +20,29 @@ module.exports = class declaration {
 
     if (this.variable) context.addVar(this.variable.value, this);
   }
-  ast() {
+  getAst() {
     if (this.variable) {
-      return template("const VAR_NAME = EXPRESSION;")({
-        VAR_NAME: t.identifier(this.variable.value.replace(/-/g, "_")),
-        EXPRESSION: t.stringLiteral(nodeToString(this.value))
+      return template("$.%%var_name%% = %%expression%%;")({
+        var_name: t.identifier(this.variable.value.replace(/-/g, "_")),
+        expression:
+          this.value.type == "variable"
+            ? t.identifier(this.value.value)
+            : t.stringLiteral(nodeToString(this.value))
       });
     }
     if (this.identifier) {
+      const variable = this.value.value.find(item => item.type == "variable");
       return template("rule.props({IDENTIFIER: EXPRESSION});")({
         IDENTIFIER: t.identifier(this.identifier.value),
-        EXPRESSION: t.stringLiteral(nodeToString(this.value))
+        EXPRESSION: variable
+          ? variable.value
+          : t.stringLiteral(nodeToString(this.value))
       });
     }
   }
 
   toString() {
-    const result = generate(this.ast());
+    const result = generate(this.getAst());
     return result.code + "\n";
   }
 };

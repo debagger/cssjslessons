@@ -3,7 +3,7 @@ const { parse } = require("scss-parser");
 const Import = require("../src/js/scsstojs/@import");
 const RootContext = require("./utils/RootContextMock");
 
-describe.only("@Include statement", function() {
+describe("@Include statement", function() {
   it("takes input and return correct JS code", function() {
     const inputAst = parse('@import "imported_file"').value[0];
     const context = new RootContext({ imported_file: "$var1: 123;" });

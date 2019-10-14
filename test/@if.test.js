@@ -8,7 +8,7 @@ describe("Simple @if tests", function() {
     const newif = new _if(ast);
     const result = newif.toString().replace(/\n/g, "");
     console.log(result);
-    const expected = `if(var1 || var2){css.props({"color": "red"})}`;
+    const expected = `if (var1 || var2) {rule.props({  font-size: "red"});}`;
     assert.equal(expected, result);
   });
 
@@ -16,7 +16,7 @@ describe("Simple @if tests", function() {
     const ast = parse("@if $var1 or not $var2 {color: red;}").value[0];
     const newif = new _if(ast);
     const result = newif.toString().replace(/\n/g, "");
-    assert.equal(`if(var1 || !var2){css.props({"color": "red"})}`, result);
+    assert.equal(`if (var1 || !var2) {rule.props({  color: "red"});}`, result);
   });
 
   it("$var1 or not ($var2 and $var3)", function() {
