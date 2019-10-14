@@ -2,7 +2,6 @@ const comment_singleline = require("./comment_singleline");
 const space = require("./space");
 const declaration = require("./declaration");
 const comment_multiline = require("./comment_multiline");
-const fs = require("fs");
 const { parse } = require("scss-parser");
 const path = require("path");
 const Context = require("./context");
@@ -28,7 +27,7 @@ module.exports = class Stylesheet {
       Object.keys(types).includes(i.type)
         ? types[i.type](i)
         : console.error(
-            `Unexpected node type '${i.type}' at line ${i.start.line}`
+            `Unexpected node type '${i.type}' at line ${i.start.line}, '${filename}'`
           )
     );
   }
@@ -51,7 +50,8 @@ module.exports = class Stylesheet {
       .join("");
     return `
 const styleSheet = require("../src/js/ss.js");
-const css = new styleSheet();
-${items}`;
+module.exports = function(css, $, mixin) {
+${items}
+}`;
   }
 };
