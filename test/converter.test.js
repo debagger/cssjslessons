@@ -1,7 +1,7 @@
 const assert = require("assert");
 const converter = require("../src/js/scsstojs/converter");
 
-describe("Converter test on bootstrap-reboot", function() {
+describe.skip("Converter test on bootstrap-reboot", function() {
   it("Parse _mixin.scss", function() {
     const fs = require("fs");
     const { parse } = require("scss-parser");
@@ -32,7 +32,7 @@ describe("Converter test on bootstrap-reboot", function() {
   });
 });
 
-describe("rfs.scss convert", function() {
+describe.skip("rfs.scss convert", function() {
   it("Parser roundtrip test", function() {
     const { parse, stringify } = require("scss-parser");
     const fs = require("fs");

@@ -21,7 +21,7 @@ describe("@mixin", function() {
   }`;
     const expected = `mixin.font_size = () => {
   rule.props({
-    font-size: "12px"
+    "font-size": "12px"
   });
 };`;
     mixinOutputTest(scss, expected);
@@ -33,7 +33,7 @@ describe("@mixin", function() {
   }`;
     const expected = `mixin.font_size = size => {
   rule.props({
-    font-size: size
+    "font-size": size
   });
 };`;
     mixinOutputTest(scss, expected);
@@ -46,10 +46,10 @@ describe("@mixin", function() {
 }`;
     const expected = `mixin.font_size = (size, weight) => {
   rule.props({
-    font-size: size
+    "font-size": size
   });
   rule.props({
-    font-weight: weight
+    "font-weight": weight
   });
 };`;
     mixinOutputTest(scss, expected);
@@ -62,10 +62,10 @@ describe("@mixin", function() {
     }`;
     const expected = `mixin.font_size = (size, weight = "bold") => {
   rule.props({
-    font-size: size
+    "font-size": size
   });
   rule.props({
-    font-weight: weight
+    "font-weight": weight
   });
 };`;
     mixinOutputTest(scss, expected);

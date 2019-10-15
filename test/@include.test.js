@@ -4,7 +4,7 @@ const atrule = require("../src/js/scsstojs/atrule");
 const RootContextMock = require("./utils/RootContextMock");
 const Stylesheet = require("../src/js/scsstojs/stylesheet");
 describe("@include tests", function() {
-  it("@include rfs($fs, $important)", function() {
+  it("@include mixin", function() {
     const files = {
       root: `@import "mixins";
 p {
@@ -28,7 +28,7 @@ p {
 
   css.rule("p")(rule => {
     rule.props({
-      font-size: "12px"
+      "font-size": "12px"
     });
     rule.include(mixin["redandwhite"]);
   });

@@ -32,9 +32,12 @@ module.exports = class declaration {
     }
     if (this.identifier) {
       const variable = this.value.value.find(item => item.type == "variable");
-      return template("rule.props({IDENTIFIER: EXPRESSION});")({
-        IDENTIFIER: t.identifier(this.identifier.value),
-        EXPRESSION: variable
+
+      return template("rule.props({%%identifier%%: %%expression%%});")({
+        identifier: this.identifier.value.includes("-")
+          ? t.stringLiteral(this.identifier.value)
+          : t.identifier(this.identifier.value),
+        expression: variable
           ? variable.value
           : t.stringLiteral(nodeToString(this.value))
       });

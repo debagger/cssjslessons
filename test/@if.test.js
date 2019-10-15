@@ -23,7 +23,7 @@ describe("Simple @if tests", function() {
     {
       css.rule("h1")(rule => {
         rule.props({
-          font-size: "700"
+          "font-size": "700"
         });
         rule.props({
           color: "red"
