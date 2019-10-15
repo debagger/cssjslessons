@@ -1,12 +1,15 @@
 const assert = require("assert");
 const { parse } = require("scss-parser");
 const _if = require("../src/js/scsstojs/@if");
-
-describe("Simple @if tests", function() {
-  it("$var1 or $var2", function() {
-    const ast = parse("@if $var1 or $var2 {font-size: red;}").value[0];
-    const newif = new _if(ast);
-    const result = newif.toString().replace(/\n/g, "");
+const RootContextMock = require("./utils/RootContextMock");
+const StyleSheet = require("../src/js/scsstojs/stylesheet");
+describe.only("Simple @if tests", function() {
+  it.only("$var1 or $var2", function() {
+    const context = new RootContextMock({
+      root: `@if $var1 or $var2 {font-size: red;}`
+    });
+    const rootStyleSheet = new StyleSheet("root", context);
+    const result = rootStyleSheet.toString();
     console.log(result);
     const expected = `if (var1 || var2) {rule.props({  font-size: "red"});}`;
     assert.equal(expected, result);
@@ -25,7 +28,7 @@ describe("Simple @if tests", function() {
     const newif = new _if(ast);
     const result = newif.toString().replace(/\n/g, "");
     assert.equal(
-      `if(var1 || !(var2 && var3)){css.props({"color": "red"})}`,
+      `if (var1 || !(var2 && var3)) {rule.props({  color: "red"});}`,
       result
     );
   });
@@ -37,7 +40,7 @@ describe("Simple @if tests", function() {
     const newif = new _if(ast);
     const result = newif.toString().replace(/\n/g, "");
     assert.equal(
-      `if(var1 != "test" || !(var2 && var3 > 0)){css.props({"color": "red"})}`,
+      `if (var1 != "test" || !(var2 && var3 > 0)) {rule.props({  color: "red"});}`,
       result
     );
   });
@@ -49,7 +52,7 @@ describe("Simple @if tests", function() {
     const newif = new _if(ast);
     const result = newif.toString().replace(/\n/g, "");
     assert.equal(
-      `if((var1 + var2) >= 100 || !(var2 && var3 > 0)){css.props({"color": "red"})}`,
+      `if ((var1 + var2) >= 100 || !(var2 && var3 > 0)) {rule.props({  color: "red"});}`,
       result
     );
   });

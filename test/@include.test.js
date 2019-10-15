@@ -2,6 +2,7 @@ const assert = require("assert");
 const { parse } = require("scss-parser");
 const atrule = require("../src/js/scsstojs/atrule");
 const RootContextMock = require("./utils/RootContextMock");
+const Stylesheet = require("../src/js/scsstojs/stylesheet");
 describe("@include tests", function() {
   it("@include rfs($fs, $important)", function() {
     const files = {
@@ -20,6 +21,18 @@ p {
 
     const result = rootStylesheet.toString();
     console.log(result);
-    assert.equal(result, "function");
+    assert.equal(
+      result,
+      `module.exports = function (css, $, mixin) {
+  require("./mixins")(css, $, mixin);
+
+  css.rule("p")(rule => {
+    rule.props({
+      font-size: "12px"
+    });
+    rule.include(mixin["redandwhite"]);
+  });
+};`
+    );
   });
 });

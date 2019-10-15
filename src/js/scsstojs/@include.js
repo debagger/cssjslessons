@@ -3,6 +3,10 @@ const _arguments = require("./arguments");
 const variable = require("./variable");
 const { nodeToString } = require("./tools");
 
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
+
 module.exports = class include {
   constructor(ast) {
     const types = {
@@ -31,7 +35,11 @@ module.exports = class include {
           )
     );
   }
-  getAst() {}
+  getAst() {
+    return template("rule.include(mixin[%%identifier%%]);")({
+      identifier: t.stringLiteral(this.identifier)
+    });
+  }
 
   toString() {
     if (this.arguments)

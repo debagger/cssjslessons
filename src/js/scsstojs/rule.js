@@ -1,7 +1,10 @@
 const { nodeToString } = require("./tools");
 const selector = require("./selector");
 const block = require("./block");
-const Context = require("./ContextBase");
+const Context = require("./context");
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 module.exports = class rule {
   constructor(ast, context) {
     this.ast = ast;
@@ -23,6 +26,26 @@ module.exports = class rule {
             `Unexpected node type '${i.type}' at line ${i.start.line}`
           )
     );
+  }
+  getAst() {
+    const [first, ...other] = this.selector.selectors;
+    const result = [
+      template("css.rule(%%selector%%)(%%block%%);")({
+        selector: t.stringLiteral(first),
+        block: this.block.getAst()
+      })
+    ];
+    result.concat(
+      other.map(item =>
+        template("css.rule(%%selector%%).extend(css.rule(%%first_selector%%);")(
+          {
+            selector: t.stringLiteral(item),
+            first_selector: t.stringLiteral(first)
+          }
+        )
+      )
+    );
+    return result;
   }
   toString() {
     const [first, ...other] = this.selector.selectors;

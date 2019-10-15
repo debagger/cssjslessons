@@ -1,4 +1,7 @@
 const variable = require("./variable");
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 
 module.exports = class atruleIf {
   constructor(ast, context) {
@@ -27,6 +30,13 @@ module.exports = class atruleIf {
         }
       }
     }
+  }
+
+  getAst() {
+    const stringExpression = this.expressionToString(this.expression);
+    return template(`if(${stringExpression}){%%body%%}`)({
+      body: this.block.getAst()
+    });
   }
 
   expressionToString(expressionArray) {
@@ -82,9 +92,6 @@ module.exports = class atruleIf {
   }
 
   toString() {
-    const expr = this.expressionToString(this.expression);
-
-    const blockstr = this.block.toString();
-    return `if (${expr}) {\n${blockstr}}\n`;
+    return generate(this.getAst());
   }
 };

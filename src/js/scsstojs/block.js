@@ -2,7 +2,10 @@ const declaration = require("./declaration");
 const space = require("./space");
 const comment_singleline = require("./comment_singleline");
 const atrule = require("./atrule");
-const Context = require("./context");
+
+const generate = require("@babel/generator").default;
+const template = require("@babel/template").default;
+const t = require("@babel/types");
 
 module.exports = class block {
   constructor(ast, context) {
@@ -29,36 +32,16 @@ module.exports = class block {
   }
 
   getAst() {
+    const rule = require("./rule");
+    if (this.context.contextObj && this.context.contextObj instanceof rule) {
+      return template("rule => {  %%block_content%% }")({
+        block_content: this.items.map(item => item.getAst())
+      }).expression;
+    }
     return this.items.map(item => item.getAst());
   }
 
   toString() {
-    const rule = require("./rule");
-    let previtem;
-    return this.items
-      .filter(item => !(item instanceof space))
-      .map((item, i, arr) => {
-        const prev = i - 1 >= 0 ? arr[i - 1] : undefined;
-
-        if (item instanceof declaration) {
-          let res = "";
-          if (prev instanceof rule) res += "\n.parent";
-          res += `\n${item.toString()}`;
-          return res;
-        }
-
-        if (item instanceof comment_singleline)
-          return prev instanceof comment_singleline
-            ? "\n" + item.toString()
-            : item.toString();
-
-        if (item instanceof rule) {
-          const [firstSelector, ...otherSelectors] = item.selector.selectors;
-
-          return `\n.nest("${firstSelector}")${item.block.toString()}`;
-        }
-        if (item) return item.toString();
-      })
-      .join("");
+    return generate(this.getAst());
   }
 };

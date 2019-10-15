@@ -37,7 +37,10 @@ module.exports = class Stylesheet {
     const result = template(
       "module.exports = function (css, $, mixin) { %%body%% }"
     )({
-      body: this.items.map(item => item.getAst())
+      body: this.items.reduce(
+        (result, item) => result.concat(item.getAst()),
+        []
+      )
     });
     return result;
   }
