@@ -29,31 +29,26 @@ module.exports = class rule {
   }
   getAst() {
     const [first, ...other] = this.selector.selectors;
-    const result = [
-      template("css.rule(%%selector%%)(%%block%%);")({
-        selector: t.stringLiteral(first),
-        block: this.block.getAst()
-      })
-    ];
-    result.concat(
-      other.map(item =>
-        template("css.rule(%%selector%%).extend(css.rule(%%first_selector%%);")(
-          {
+    let result = template("css.rule(%%selector%%)(%%block%%);")({
+      selector: t.stringLiteral(first),
+      block: this.block.getAst()
+    });
+    if (other.length > 0) {
+      result = t.blockStatement([
+        result,
+        ...other.map(item =>
+          template(
+            "css.rule(%%selector%%).extend(css.rule(%%first_selector%%));"
+          )({
             selector: t.stringLiteral(item),
             first_selector: t.stringLiteral(first)
-          }
+          })
         )
-      )
-    );
+      ]);
+    }
     return result;
   }
   toString() {
-    const [first, ...other] = this.selector.selectors;
-    const otherRules = other
-      .map(selector => `css.rule("${selector}").extend(css.rule("${first}"));`)
-      .join("\n");
-    return `
-css.rule("${first}")${this.block.toString()}
-${otherRules}`;
+    generate(this.getAst());
   }
 };
