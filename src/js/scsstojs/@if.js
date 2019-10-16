@@ -17,6 +17,9 @@ module.exports = class atruleIf {
       }.bind(this)
     };
 
+    if (ast.value.find(item => item.type == "identifier" && item.value == "if"))
+      this.identifier = "if";
+
     this.expression = [];
 
     for (const item of ast.value) {
@@ -33,10 +36,19 @@ module.exports = class atruleIf {
   }
 
   getAst() {
-    const stringExpression = this.expressionToString(this.expression);
-    return template(`if(${stringExpression}){%%body%%}`)({
-      body: this.block.getAst()
-    });
+    if (
+      this.atkeyword == "if" ||
+      (this.identifier && this.identifier == "if")
+    ) {
+      const stringExpression = this.expressionToString(this.expression);
+      return template(`if(${stringExpression}){%%body%%}`)({
+        body: this.block.getAst()
+      });
+    } else {
+      return template(`{%%body%%}`)({
+        body: this.block.getAst()
+      });
+    }
   }
 
   expressionToString(expressionArray) {

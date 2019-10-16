@@ -34,13 +34,33 @@ module.exports = class Stylesheet {
       );
   }
   getAst() {
+    const body = {
+      *[Symbol.iterator]() {
+        const _if = require("./@if");
+        let currentIfAst;
+        for (const item of this.items) {
+          if (item instanceof _if) {
+            if (item.atkeyword == "if") {
+              const ifAst = item.getAst();
+              currentIfAst = ifAst;
+              yield ifAst;
+            } else {
+              const ast = item.getAst();
+              currentIfAst.alternate = ast;
+              currentIfAst = ast;
+            }
+          } else {
+            yield item.getAst();
+          }
+        }
+      },
+      items: this.items
+    };
+
     const result = template(
       "module.exports = function (css, $, mixin) { %%body%% }"
     )({
-      body: this.items.reduce(
-        (result, item) => result.concat(item.getAst()),
-        []
-      )
+      body: [...body]
     });
     return result;
   }

@@ -1,6 +1,5 @@
 const assert = require("assert");
 const { parse } = require("scss-parser");
-const _if = require("../src/js/scsstojs/@if");
 const RootContextMock = require("./utils/RootContextMock");
 const StyleSheet = require("../src/js/scsstojs/stylesheet");
 
@@ -88,6 +87,31 @@ describe("Simple @if tests", function() {
   if (var1 + var2 >= 100 || !(var2 && var3 > 0)) {
     rule.props({
       color: "red"
+    });
+  }
+};`;
+    assert.equal(expected, result);
+  });
+});
+
+describe("@if @else tests", function() {
+  it("If ifelse else", function() {
+    const result = getJSResult(
+      `@if $var1 == "abc" {color: red;} @else if $var1 == 1 {color: black;} @else {color: blue;}`
+    );
+    console.log(result);
+    const expected = `module.exports = function (css, $, mixin) {
+  if (var1 == "abc") {
+    rule.props({
+      color: "red"
+    });
+  } else if (var1 == 1) {
+    rule.props({
+      color: "black"
+    });
+  } else {
+    rule.props({
+      color: "blue"
     });
   }
 };`;

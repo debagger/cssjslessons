@@ -3,6 +3,7 @@ module.exports = function(ast, context) {
   const atrules = {
     include: require("./@include"),
     if: require("./@if"),
+    else: require("./@if"),
     import: require("./@import"),
     mixin: require("./@mixin"),
     function: require("./@function"),
