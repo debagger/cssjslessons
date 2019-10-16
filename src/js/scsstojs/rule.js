@@ -28,8 +28,19 @@ module.exports = class rule {
     );
   }
   getAst() {
+    const stylesheet = require("./stylesheet");
+    let ruleTemplate = "css.rule(%%selector%%)(%%block%%);";
+    let extendRuleTemplate =
+      "css.rule(%%selector%%).extend(css.rule(%%first_selector%%));";
+
+    if (this.context.contextObj && this.context.contextObj instanceof rule) {
+      ruleTemplate = "rule.nested(%%selector%%)(%%block%%);";
+      extendRuleTemplate =
+        "rule.nested(%%selector%%).extend(css.rule(%%first_selector%%));";
+    }
+
     const [first, ...other] = this.selector.selectors;
-    let result = template("css.rule(%%selector%%)(%%block%%);")({
+    let result = template(ruleTemplate)({
       selector: t.stringLiteral(first),
       block: this.block.getAst()
     });
@@ -37,9 +48,7 @@ module.exports = class rule {
       result = t.blockStatement([
         result,
         ...other.map(item =>
-          template(
-            "css.rule(%%selector%%).extend(css.rule(%%first_selector%%));"
-          )({
+          template(extendRuleTemplate)({
             selector: t.stringLiteral(item),
             first_selector: t.stringLiteral(first)
           })
