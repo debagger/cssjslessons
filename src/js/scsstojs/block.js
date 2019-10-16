@@ -15,8 +15,7 @@ module.exports = class block {
 
     const types = {
       rule: ast => new rule(ast, this.context),
-      declaration: ast => new declaration(ast),
-      space: ast => new space(ast),
+      declaration: ast => new declaration(ast, context),
       comment_singleline: ast => new comment_singleline(ast),
       atrule: ast => atrule(ast, this.context)
     };
@@ -33,9 +32,33 @@ module.exports = class block {
 
   getAst() {
     const rule = require("./rule");
+
+    const body = {
+      *[Symbol.iterator]() {
+        const _if = require("./@if");
+        let currentIfAst;
+        for (const item of this.items) {
+          if (item instanceof _if) {
+            if (item.atkeyword == "if") {
+              const ifAst = item.getAst();
+              currentIfAst = ifAst;
+              yield ifAst;
+            } else {
+              const ast = item.getAst();
+              currentIfAst.alternate = ast;
+              currentIfAst = ast;
+            }
+          } else {
+            yield item.getAst();
+          }
+        }
+      },
+      items: this.items
+    };
+
     if (this.context.contextObj && this.context.contextObj instanceof rule) {
-      return template("rule => {  %%block_content%% }")({
-        block_content: this.items.map(item => item.getAst())
+      return template("rule => {  %%body%% }")({
+        body: [...body]
       }).expression;
     }
     return this.items.map(item => item.getAst());
