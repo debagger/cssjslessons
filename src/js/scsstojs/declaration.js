@@ -46,6 +46,6 @@ module.exports = class declaration {
 
   toString() {
     const result = generate(this.getAst());
-    return result.code + "\n";
+    return result.code;
   }
 };

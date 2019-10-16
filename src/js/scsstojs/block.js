@@ -32,33 +32,24 @@ module.exports = class block {
 
   getAst() {
     const rule = require("./rule");
-
-    const body = {
-      *[Symbol.iterator]() {
-        const _if = require("./@if");
-        let currentIfAst;
-        for (const item of this.items) {
-          if (item instanceof _if) {
-            if (item.atkeyword == "if") {
-              const ifAst = item.getAst();
-              currentIfAst = ifAst;
-              yield ifAst;
-            } else {
-              const ast = item.getAst();
-              currentIfAst.alternate = ast;
-              currentIfAst = ast;
-            }
-          } else {
-            yield item.getAst();
-          }
+    const _if = require("./@if");
+    const body = [];
+    let currentIfAst;
+    for (const item of this.items) {
+      if (item instanceof _if) {
+        if (item.atkeyword == "if") {
+          body.push((currentIfAst = item.getAst()));
+        } else {
+          currentIfAst = currentIfAst.alternate = item.getAst();
         }
-      },
-      items: this.items
-    };
+      } else {
+        body.push(item.getAst());
+      }
+    }
 
     if (this.context.contextObj && this.context.contextObj instanceof rule) {
       return template("rule => {  %%body%% }")({
-        body: [...body]
+        body
       }).expression;
     }
     return this.items.map(item => item.getAst());
