@@ -1,15 +1,6 @@
 const assert = require("assert");
-const Stylesheet = require("../src/js/scsstojs/stylesheet");
-const RootContextMock = require("./utils/RootContextMock");
+const getJSResult = require("./utils/getJSResult");
 
-function getJSResult(sourceCSS) {
-  const context = new RootContextMock({
-    root: sourceCSS
-  });
-  const rootStyleSheet = new Stylesheet("root", context);
-  const result = rootStyleSheet.toString();
-  return result;
-}
 describe("Rules tests", function() {
   it("correct output for simple rule", function() {
     const source = `h1 {

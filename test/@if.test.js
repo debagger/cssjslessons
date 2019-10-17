@@ -1,16 +1,6 @@
 const assert = require("assert");
-const { parse } = require("scss-parser");
-const RootContextMock = require("./utils/RootContextMock");
-const StyleSheet = require("../src/js/scsstojs/stylesheet");
+const getJSResult = require("./utils/getJSResult");
 
-function getJSResult(sourceCSS) {
-  const context = new RootContextMock({
-    root: sourceCSS
-  });
-  const rootStyleSheet = new StyleSheet("root", context);
-  const result = rootStyleSheet.toString();
-  return result;
-}
 describe("Simple @if tests", function() {
   it("$var1 or $var2", function() {
     const result = getJSResult(

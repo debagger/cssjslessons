@@ -1,42 +1,38 @@
 const assert = require("assert");
-const mixin = require("../src/js/scsstojs/@mixin");
-const { parse } = require("scss-parser");
-const RootContextMock = require("./utils/RootContextMock");
+const getJSResult = require("./utils/getJSResult");
 
 describe("@mixin", function() {
-  function mixinOutputTest(scss, expected) {
-    const ast = parse(scss).value[0];
-    const context = new RootContextMock();
-
-    const mix = new mixin(ast, context);
-
-    const actual = mix.toString();
-    console.log(actual);
-    assert.equal(actual, expected, "Wrong mixin object output");
-  }
-
   it("correct output with no var", function() {
     const scss = `@mixin font-size {
     font-size: 12px;
   }`;
-    const expected = `mixin.font_size = () => {
-  rule.props({
-    "font-size": "12px"
-  });
+
+    const expected = `module.exports = function (css, $, mixin) {
+  mixin.font_size = () => {
+    rule.props({
+      "font-size": "12px"
+    });
+  };
 };`;
-    mixinOutputTest(scss, expected);
+    const actual = getJSResult(scss);
+    console.log(actual);
+    assert.equal(actual, expected, "Wrong mixin object output");
   });
 
   it("correct output with single var", function() {
     const scss = `@mixin font-size($size) {
       font-size: $size;
   }`;
-    const expected = `mixin.font_size = size => {
-  rule.props({
-    "font-size": size
-  });
+    const expected = `module.exports = function (css, $, mixin) {
+  mixin.font_size = size => {
+    rule.props({
+      "font-size": size
+    });
+  };
 };`;
-    mixinOutputTest(scss, expected);
+    const actual = getJSResult(scss);
+    console.log(actual);
+    assert.equal(actual, expected, "Wrong mixin object output");
   });
 
   it("correct output with two vars", function() {
@@ -44,15 +40,19 @@ describe("@mixin", function() {
   font-size: $size;
   font-weight: $weight;
 }`;
-    const expected = `mixin.font_size = (size, weight) => {
-  rule.props({
-    "font-size": size
-  });
-  rule.props({
-    "font-weight": weight
-  });
+    const expected = `module.exports = function (css, $, mixin) {
+  mixin.font_size = (size, weight) => {
+    rule.props({
+      "font-size": size
+    });
+    rule.props({
+      "font-weight": weight
+    });
+  };
 };`;
-    mixinOutputTest(scss, expected);
+    const actual = getJSResult(scss);
+    console.log(actual);
+    assert.equal(actual, expected, "Wrong mixin object output");
   });
 
   it("correct output with vars has default values", function() {
@@ -60,14 +60,18 @@ describe("@mixin", function() {
       font-size: $size;
       font-weight: $weight;
     }`;
-    const expected = `mixin.font_size = (size, weight = "bold") => {
-  rule.props({
-    "font-size": size
-  });
-  rule.props({
-    "font-weight": weight
-  });
+    const expected = `module.exports = function (css, $, mixin) {
+  mixin.font_size = (size, weight = "bold") => {
+    rule.props({
+      "font-size": size
+    });
+    rule.props({
+      "font-weight": weight
+    });
+  };
 };`;
-    mixinOutputTest(scss, expected);
+    const actual = getJSResult(scss);
+    console.log(actual);
+    assert.equal(actual, expected, "Wrong mixin object output");
   });
 });
