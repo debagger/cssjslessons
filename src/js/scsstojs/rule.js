@@ -38,19 +38,18 @@ module.exports = class rule {
       extendRuleTemplate =
         "rule.nested(%%selector%%).extend(css.rule(%%first_selector%%));";
     }
-
-    const [first, ...other] = this.selector.selectors;
+    const first = this.selector.getAst();
     let result = template(ruleTemplate)({
-      selector: t.stringLiteral(first),
+      selector: first,
       block: this.block.getAst()
     });
-    if (other.length > 0) {
+    if (this.selector.other.length > 0) {
       result = t.blockStatement([
         result,
-        ...other.map(item =>
+        ...this.selector.other.map(item =>
           template(extendRuleTemplate)({
-            selector: t.stringLiteral(item),
-            first_selector: t.stringLiteral(first)
+            selector: item.getAst(),
+            first_selector: first
           })
         )
       ]);

@@ -26,7 +26,7 @@ p {
       `module.exports = function (css, $, mixin) {
   require("./mixins")(css, $, mixin);
 
-  css.rule("p")(rule => {
+  css.rule(\`p\`)(rule => {
     rule.props({
       "font-size": "12px"
     });

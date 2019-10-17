@@ -10,7 +10,7 @@ describe("Simple @if tests", function() {
     const expected = `module.exports = function (css, $, mixin) {
   if (var1 || var2) {
     {
-      css.rule("h1")(rule => {
+      css.rule(\`h1\`)(rule => {
         rule.props({
           "font-size": "700"
         });
@@ -18,7 +18,7 @@ describe("Simple @if tests", function() {
           color: "red"
         });
       });
-      css.rule("p").extend(css.rule("h1"));
+      css.rule(\`p\`).extend(css.rule(\`h1\`));
     }
   }
 };`;
@@ -127,7 +127,7 @@ describe("@if @else tests", function() {
     );
     console.log(result);
     const expected = `module.exports = function (css, $, mixin) {
-  css.rule("h1")(rule => {
+  css.rule(\`h1\`)(rule => {
     rule.props({
       background: "white"
     });
@@ -185,7 +185,7 @@ describe("@if @else tests", function() {
     const expected = `module.exports = function (css, $, mixin) {
   if (var2 || var3) {
     $.var1 = "321";
-    css.rule("h1")(rule => {
+    css.rule(\`h1\`)(rule => {
       rule.props({
         background: "white"
       });

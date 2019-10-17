@@ -7,7 +7,8 @@ module.exports = function(ast, context) {
     import: require("./@import"),
     mixin: require("./@mixin"),
     function: require("./@function"),
-    error: require("./@error")
+    error: require("./@error"),
+    for: require("./@for")
   };
   const atrule = atrules[atkeyword];
   if (atrule) {

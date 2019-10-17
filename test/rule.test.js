@@ -11,7 +11,7 @@ describe("Rules tests", function() {
     const result = getJSResult(source);
     console.log(result);
     const expected = `module.exports = function (css, $, mixin) {
-  css.rule("h1")(rule => {
+  css.rule(\`h1\`)(rule => {
     rule.props({
       "font-size": "32px"
     });
@@ -37,7 +37,7 @@ describe("Rules tests", function() {
     const result = getJSResult(source);
     console.log(result);
     const expected = `module.exports = function (css, $, mixin) {
-  css.rule("h1")(rule => {
+  css.rule(\`h1\`)(rule => {
     rule.props({
       "font-size": "32px"
     });
@@ -47,7 +47,7 @@ describe("Rules tests", function() {
     rule.props({
       color: "red"
     });
-    rule.nested("yellow")(rule => {
+    rule.nested(\`.yellow\`)(rule => {
       rule.props({
         color: "yellow"
       });
