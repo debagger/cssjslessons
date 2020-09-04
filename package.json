@@ -31,7 +31,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-rollup": "^2.16.2",
     "gulp-sourcemaps": "^2.6.5",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "rollup": "^1.21.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",
